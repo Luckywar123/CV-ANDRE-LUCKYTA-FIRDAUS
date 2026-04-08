@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Andre Luckyta Firdaus – Full-Stack Web3 Developer &amp; AI Agent Specialist | React • Supabase • Python • WalletConnect • Treasury Wallet">
+    <title>Andre Luckyta Firdaus | Full-Stack Web3 + AI Agent | Crypto Ready</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root { --binance-yellow: #f0b90b; }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, transform, opacity;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms;
+        }
+        
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .heading-font { font-family: 'Space Grotesk', sans-serif; }
+        
+        .hero-bg {
+            background: linear-gradient(90deg, #0a0a0a 0%, #1a1a2e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(240, 185, 11, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(240, 185, 11, 0.12) 0%, transparent 50%);
+            animation: blockchainPulse 25s infinite linear;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        @keyframes blockchainPulse {
+            0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; }
+        }
+        
+        .nav-link { position: relative; }
+        .nav-link:after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 0;
+            background-color: #f0b90b;
+        }
+        .nav-link:hover:after { width: 100%; }
+        
+        .section-header { position: relative; }
+        .section-header:after {
+            content: ''; position: absolute; width: 60px; height: 3px;
+            background: linear-gradient(to right, #f0b90b, #ffcc33);
+            bottom: -6px; left: 0;
+            animation: underlineGrow 1.5s ease-in-out forwards;
+        }
+        @keyframes underlineGrow { from { width: 0; } to { width: 60px; } }
+        
+        .card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0; transform: translateY(30px);
+        }
+        .card.visible { opacity: 1; transform: translateY(0); }
+        .card:hover { transform: translateY(-8px) scale(1.03); }
+        
+        .glow { animation: glow 3s ease-in-out infinite alternate; }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #f0b90b; }
+            to { text-shadow: 0 0 25px #f0b90b, 0 0 40px #ffcc33; }
+        }
+        
+        .position-tab { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .position-tab.active {
+            background-color: #f0b90b; color: #000; font-weight: 600; transform: scale(1.05);
+        }
+        
+        .fade-in { animation: fadeInUp 0.8s ease forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Tambahkan di paling bawah bagian <style> */
+        .hero-subtitle { animation: fadeInUp 1s ease 400ms both; }
+        .cta-button { transition: all 0.3s ease; }
+        .cta-button:hover { transform: scale(1.08) translateY(-2px); box-shadow: 0 10px 20px rgba(240, 185, 11, 0.3); }
+        .skill-tag {
+            @apply px-5 py-2 bg-white/10 hover:bg-white/20 text-sm rounded-3xl cursor-default;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white">
+
+    <!-- NAVBAR -->
+    <nav class="bg-black/80 backdrop-blur-lg border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-gradient-to-br from-[#f0b90b] to-[#ffcc33] rounded-2xl flex items-center justify-center text-black font-bold text-2xl rotate-12 glow">B</div>
+                <h1 class="heading-font text-2xl tracking-tighter">Andre Luckyta Firdaus</h1>
+                <span id="current-role-badge" class="text-xs font-medium px-3 py-1 bg-[#f0b90b]/10 text-[#f0b90b] rounded-3xl border border-[#f0b90b]/30">FULL-STACK WEB3 + AI AGENT</span>
+            </div>
+            
+            <div class="flex items-center gap-x-2 bg-zinc-900 border border-white/10 rounded-3xl p-1 text-sm overflow-x-auto">
+                <button onclick="switchPosition(0)" id="tab-0" class="position-tab active px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Full-Stack Web3 Dev</button>
+                <button onclick="switchPosition(1)" id="tab-1" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Data Analyst / BI</button>
+                <button onclick="switchPosition(2)" id="tab-2" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Data Engineer</button>
+                <button onclick="switchPosition(3)" id="tab-3" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Data Scientist</button>
+                <button onclick="switchPosition(4)" id="tab-4" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">QA Engineer</button>
+            </div>
+            
+            <div class="flex items-center gap-x-4">
+                <a href="mailto:andreluckytafirdaus2001@gmail.com" class="flex items-center gap-x-2 px-6 py-3 bg-white text-black font-semibold rounded-3xl hover:bg-[#f0b90b] hover:text-black">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span class="hidden sm:inline">GET IN TOUCH</span>
+                </a>
+                <!-- DOWNLOAD BUTTON - REAL PDF DOWNLOAD -->
+                <a href="Asset/CV.pdf" 
+                    download="Andre_Luckyta_Firdaus_CV.pdf"
+                    class="flex items-center gap-x-2 px-5 py-3 border border-[#f0b90b] text-[#f0b90b] font-semibold rounded-3xl hover:bg-[#f0b90b] hover:text-black cta-button">
+                    <i class="fa-solid fa-download"></i>
+                    <span>DOWNLOAD CV</span>
+                </a>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-2xl"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+        
+        <div id="mobileMenu" class="hidden md:hidden bg-black border-t border-white/10 px-8 py-6">
+            <div class="flex flex-col gap-y-4 text-sm">
+                <a href="#about" class="nav-link">ABOUT</a>
+                <a href="#experience" class="nav-link">EXPERIENCE</a>
+                <a href="#projects" class="nav-link">PROJECTS</a>
+                <a href="#skills" class="nav-link">SKILLS</a>
+                <a href="#cv" class="nav-link">MY CV</a>  
+                <a href="#education" class="nav-link">EDUCATION</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="home" class="hero-bg pt-20 pb-16">
+        <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-12 gap-12 items-center relative z-10">
+            <div class="md:col-span-7 fade-in">
+                <div class="inline-flex items-center gap-x-2 bg-white/10 text-white text-sm font-medium px-5 py-2 rounded-3xl border border-white/20 mb-6 glow">
+                    <i class="fa-solid fa-cube text-[#f0b90b]"></i>
+                    <span id="hero-badge">WEB3 FULL-STACK + AI AGENT READY</span>
+                </div>
+                
+                <h1 class="text-6xl md:text-7xl leading-none font-bold heading-font tracking-tighter mb-6">
+                    Andre Luckyta Firdaus
+                </h1>
+                
+                <p id="hero-title" class="text-4xl md:text-5xl text-[#f0b90b] heading-font mb-8">
+                    Full-Stack Web3 Developer &amp; AI Agent Specialist
+                </p>
+                
+                <p id="hero-subtitle" class="max-w-xl text-xl text-white/80 mb-10 max-w-xl text-xl text-white/80 mb-10 hero-subtitle">
+                    Computer Science graduate with strong hands-on experience in full-stack Web3 development. 
+                    Proficient in React.js, Supabase, Python, WalletConnect, secure treasury wallet implementation, 
+                    Google Sheets integration with live charts, and autonomous AI Agents. 
+                    Successfully built and shipped a live Web3 platform (bellybears.xyz) featuring WalletConnect integration, 
+                    on-chain treasury management, payment gateway, and real-time analytics. 
+                    Additionally developed a Python Forex Trading Bot with Exness API and AI decision engine. 
+                    Actively trading cryptocurrencies on Binance and forex on Exness, bringing real-market insights into every project.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <a href="#experience" class="inline-flex items-center gap-x-3 bg-[#f0b90b] hover:bg-amber-400 text-black font-semibold text-lg px-10 py-6 rounded-3xl cta-button inline-flex items-center gap-x-3 bg-[#f0b90b]">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span id="cta-button-text">EXPLORE MY STACK</span>
+                    </a>
+                    
+                    <div class="flex items-center text-sm text-white/60">
+                        <i class="fa-solid fa-location-dot mr-2"></i>
+                        Jakarta, Indonesia • Open to Asia / Remote
+                    </div>
+                </div>
+            </div>
+            
+            <div class="md:col-span-5 flex justify-center fade-in" style="animation-delay: 300ms">
+                <div class="relative">
+                    <div class="w-80 h-80 md:w-96 md:h-96 bg-gradient-to-br from-[#f0b90b] to-transparent rounded-[4rem] rotate-6 p-2 shadow-2xl glow">
+                        <img src="Asset/WEB3.png" alt="Andre Luckyta Firdaus" class="w-full h-full object-cover rounded-[3rem] border-4 border-black shadow-inner">
+                    </div>
+                    <div class="absolute -bottom-4 -right-4 bg-black border border-[#f0b90b] text-[#f0b90b] px-6 py-3 rounded-3xl text-sm font-medium flex items-center gap-x-2 shadow-xl">
+                        <i class="fa-solid fa-circle-check"></i>
+                        PASSPORT &amp; POLICE CLEAR
+                    </div>
+                    <div class="absolute -top-4 -left-4 bg-gradient-to-r from-[#f0b90b] to-amber-400 text-black px-5 py-2 rounded-3xl text-xs font-bold flex items-center gap-x-2 shadow-xl">
+                        <i class="fa-solid fa-wallet"></i>
+                        TREASURY WALLET IMPLEMENTED
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SUMMARY -->
+    <section id="about" class="max-w-screen-2xl mx-auto px-8 py-20 border-b border-white/10">
+        <div class="grid md:grid-cols-12 gap-16">
+            <div class="md:col-span-4">
+                <span class="px-4 py-2 text-xs font-semibold border border-[#f0b90b] text-[#f0b90b] rounded-3xl">WHY YOU SHOULD HIRE ME</span>
+                <h2 id="about-title" class="text-5xl heading-font tracking-tighter mt-6">Full-stack Web3.<br>AI Agent + Treasury Wallet.<br>Shipping today.</h2>
+            </div>
+            <div id="about-text" class="md:col-span-8 text-lg leading-relaxed text-white/80"></div>
+        </div>
+    </section>
+
+    <!-- === NEW GOALS SECTION === -->
+    <section class="max-w-screen-2xl mx-auto px-8 py-16 border-b border-white/10 bg-zinc-900">
+        <div class="grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-4">
+                <span class="px-4 py-2 text-xs font-semibold border border-[#f0b90b] text-[#f0b90b] rounded-3xl">CAREER GOALS</span>
+                <h2 class="text-5xl heading-font tracking-tighter mt-6">Building the future of decentralized finance with full-stack Web3 and intelligent AI agents.</h2>
+            </div>
+            <div class="md:col-span-8 text-lg leading-relaxed text-white/80">
+                <p class="mb-6">
+                    Seeking a challenging role in a leading Web3 company where I can leverage my full-stack development skills, 
+                    treasury wallet implementation, and AI Agent expertise to create secure, scalable, and user-centric blockchain products.
+                </p>
+                <p>
+                    Long-term goal: Contribute to innovative DeFi solutions, on-chain treasury systems, and automated trading infrastructure 
+                    that drive mass adoption of Web3 technology.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="max-w-screen-2xl mx-auto px-8 py-20 bg-zinc-900">
+        <h2 class="section-header text-4xl heading-font mb-12">Experience</h2>
+        <div id="experience-container" class="space-y-16"></div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="max-w-screen-2xl mx-auto px-8 py-20">
+        <h2 class="section-header text-4xl heading-font mb-12">Key Projects &amp; Live Web3 Platform</h2>
+        <div id="projects-container" class="grid md:grid-cols-3 gap-8"></div>
+    </section>
+
+    <!-- WEB3 & BLOCKCHAIN EXPERIENCE -->
+    <section class="max-w-screen-2xl mx-auto px-8 py-20 bg-zinc-900 border-t border-white/10">
+        <h2 class="section-header text-4xl heading-font mb-12">Web3 &amp; Blockchain Experience</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fa-solid fa-bear text-4xl text-[#f0b90b]"></i>
+                    <div>
+                        <p class="font-semibold text-xl">Belly Bears Web3 Platform</p>
+                        <p class="text-[#f0b90b] text-sm">2024 – Present • Live Production</p>
+                    </div>
+                </div>
+                <ul class="space-y-4 text-white/80 text-sm">
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Full-stack development with React.js + Supabase</li>
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>WalletConnect + MetaMask integration</li>
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Secure Treasury Wallet implementation &amp; management</li>
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Crypto payment gateway + Google Sheets live sync</li>
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Real-time charts and AI Agent features</li>
+                </ul>
+            </div>
+
+            <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fa-solid fa-robot text-4xl text-[#f0b90b]"></i>
+                    <div>
+                        <p class="font-semibold text-xl">Python Forex Trading Bot + AI Agent</p>
+                        <p class="text-[#f0b90b] text-sm">2024 – Present</p>
+                    </div>
+                </div>
+                <ul class="space-y-4 text-white/80 text-sm">
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Automated trading via Exness API</li>
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Real-time market data processing</li>
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Risk management &amp; position sizing logic</li>
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>AI Agent for trade decision making</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- SKILLS -->
+    <section id="skills" class="max-w-screen-2xl mx-auto px-8 py-20 bg-zinc-900">
+        <h2 class="section-header text-4xl heading-font mb-12">Technical Skills</h2>
+        
+        <div id="skills-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Frontend -->
+            <div class="bg-black border border-white/10 rounded-3xl p-8 card">
+                <h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-5 flex items-center gap-2">
+                    <i class="fa-solid fa-laptop-code"></i> FRONTEND
+                </h5>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">React.js</span>
+                    <span class="skill-tag">JavaScript (ES6+)</span>
+                    <span class="skill-tag">Tailwind CSS</span>
+                    <span class="skill-tag">Figma</span>
+                    <span class="skill-tag">Live Charts &amp; Dashboards</span>
+                </div>
+            </div>
+
+            <!-- Backend & Database -->
+            <div class="bg-black border border-white/10 rounded-3xl p-8 card">
+                <h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-5 flex items-center gap-2">
+                    <i class="fa-solid fa-server"></i> BACKEND &amp; DATABASE
+                </h5>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">Supabase (Auth, PostgreSQL, Storage)</span>
+                    <span class="skill-tag">SQL &amp; DBeaver</span>
+                    <span class="skill-tag">Google Sheets API</span>
+                    <span class="skill-tag">REST API Integration</span>
+                </div>
+            </div>
+
+            <!-- Blockchain & Web3 -->
+            <div class="bg-black border border-white/10 rounded-3xl p-8 card">
+                <h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-5 flex items-center gap-2">
+                    <i class="fa-solid fa-cube"></i> WEB3 &amp; BLOCKCHAIN
+                </h5>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">WalletConnect</span>
+                    <span class="skill-tag">MetaMask Integration</span>
+                    <span class="skill-tag">Treasury Wallet Implementation</span>
+                    <span class="skill-tag">Payment Gateway (Crypto)</span>
+                    <span class="skill-tag">Belly Bears Web3 Platform</span>
+                </div>
+            </div>
+
+            <!-- Python & Automation -->
+            <div class="bg-black border border-white/10 rounded-3xl p-8 card">
+                <h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-5 flex items-center gap-2">
+                    <i class="fa-solid fa-python"></i> PYTHON &amp; AUTOMATION
+                </h5>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">Python (pandas, requests, TA-Lib)</span>
+                    <span class="skill-tag">Forex Trading Bot (Exness API)</span>
+                    <span class="skill-tag">AI Agent Development</span>
+                    <span class="skill-tag">Automated Trading Systems</span>
+                </div>
+            </div>
+
+            <!-- Data & BI -->
+            <div class="bg-black border border-white/10 rounded-3xl p-8 card">
+                <h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-5 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-pie"></i> DATA &amp; BUSINESS INTELLIGENCE
+                </h5>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">Google Sheets + Live Sync</span>
+                    <span class="skill-tag">Interactive Dashboards</span>
+                    <span class="skill-tag">ETL Pipelines</span>
+                    <span class="skill-tag">Weka (Data Mining)</span>
+                </div>
+            </div>
+
+            <!-- Others -->
+            <div class="bg-black border border-white/10 rounded-3xl p-8 card">
+                <h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-5 flex items-center gap-2">
+                    <i class="fa-solid fa-toolbox"></i> OTHERS
+                </h5>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">Git &amp; GitHub</span>
+                    <span class="skill-tag">Agile / Scrum (PSPO I)</span>
+                    <span class="skill-tag">Waterfall Methodology</span>
+                    <span class="skill-tag">QA &amp; Regression Testing</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION & CERTS -->
+    <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-2 gap-12 py-20">
+        <div>
+            <h2 class="section-header text-4xl heading-font mb-8">Education</h2>
+            <div class="bg-black rounded-3xl p-8 border border-white/10 card">
+                <p class="text-[#f0b90b]">2019 – 2023</p>
+                <p class="text-3xl font-semibold">Bachelor of Computer Science</p>
+                <p class="text-xl text-white/70">Universitas Padjadjaran • GPA 3.28/4.00</p>
+                <p class="mt-6 italic">"DESIGN AND DEVELOPMENT OF INVENTORY INFORMATION SYSTEM WEBSITE IN RETAIL COMPANY USING WATERFALL METHOD"</p>
+            </div>
+        </div>
+        <div>
+            <h2 class="section-header text-4xl heading-font mb-8">Certifications</h2>
+            <div class="space-y-6">
+                <div class="flex gap-6 items-start card bg-black border border-white/10 rounded-3xl p-6">
+                    <div class="text-5xl text-[#f0b90b]">📜</div>
+                    <div><p class="font-semibold">Professional Scrum Product Owner I (PSPO I)</p><p class="text-white/60">Scrum.org • March 2025</p></div>
+                </div>
+                <div class="flex gap-6 items-start card bg-black border border-white/10 rounded-3xl p-6">
+                    <div class="text-5xl text-[#f0b90b]">🇬🇧</div>
+                    <div><p class="font-semibold">IELTS IDP UKVI General Training</p><p class="text-white/60">Score 5.5 • 2023</p></div>
+                </div>
+                <div class="flex gap-6 items-start card bg-black border border-white/10 rounded-3xl p-6">
+                    <div class="text-5xl text-[#f0b90b]">💻</div>
+                    <div><p class="font-semibold">Java Back-End Bootcamp</p><p class="text-white/60">JuaraCoding • Oct 2023 – Jan 2024</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leadership Experience - Masukkan setelah section Education & Certs -->
+    <section class="max-w-screen-2xl mx-auto px-8 py-20 border-t border-white/10">
+        <h2 class="section-header text-4xl heading-font mb-12">Leadership & Organizational Experience</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                <p class="text-[#f0b90b] font-semibold">November 2021</p>
+                <p class="text-xl font-medium">Staff Transportation & Logistics</p>
+                <p class="text-white/70">Padjadjaran Competition on Social Project (PACES)</p>
+                <ul class="mt-6 space-y-3 text-white/80 text-sm">
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Led team of 10 staff for logistics and inventory management</li>
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Coordinated delivery, supply monitoring, and performance reporting</li>
+                </ul>
+            </div>
+            <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                <p class="text-[#f0b90b] font-semibold">February 2020</p>
+                <p class="text-xl font-medium">Master of Ceremony (MC)</p>
+                <p class="text-white/70">Padjadjaran Roadshow to School</p>
+                <ul class="mt-6 space-y-3 text-white/80 text-sm">
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Led multiple school and university events</li>
+                    <li class="flex gap-2"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Managed audience engagement and technical operations</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CV VIEWER SECTION -->
+    <section id="cv" class="max-w-screen-2xl mx-auto px-8 py-20 border-t border-white/10 bg-zinc-900">
+        <h2 class="section-header text-4xl heading-font mb-10">My Curriculum Vitae</h2>
+        
+        <div class="bg-black border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+            <object 
+                data="Asset/CV.pdf" 
+                type="application/pdf" 
+                width="100%" 
+                height="850px"
+                class="w-full">
+                
+                <!-- Fallback jika PDF tidak bisa ditampilkan -->
+                <div class="p-12 text-center">
+                    <div class="mx-auto w-24 h-24 bg-white/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-file-pdf text-5xl text-[#f0b90b]"></i>
+                    </div>
+                    <p class="text-2xl font-medium text-white mb-4">CV tidak dapat ditampilkan di browser ini</p>
+                    <p class="text-white/70 mb-8 max-w-md mx-auto">
+                        Silakan download CV untuk melihat detail lengkap pengalaman, skills, dan proyek saya.
+                    </p>
+                    
+                    <a href="Asset/CV.pdf" 
+                    download="Andre_Luckyta_Firdaus_CV.pdf"
+                    class="inline-flex items-center gap-x-3 bg-[#f0b90b] hover:bg-amber-400 text-black font-semibold px-10 py-4 rounded-3xl text-lg">
+                        <i class="fa-solid fa-download"></i>
+                        DOWNLOAD CV PDF
+                    </a>
+                </div>
+            </object>
+        </div>
+
+        <div class="text-center mt-8 text-white/50 text-sm">
+            Updated April 2026 • Andre Luckyta Firdaus • Computer Science Graduate
+        </div>
+    </section>
+
+    <!-- REFERENCES & CONTACT -->
+    <section class="max-w-screen-2xl mx-auto px-8 py-20 border-t border-white/10">
+        <div class="grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7">
+                <h2 class="text-4xl heading-font mb-6">References</h2>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div>
+                        <p class="font-medium">Nana Rusyana</p>
+                        <p class="text-white/60">TM Maintenance • PT Pertamina Hulu Rokan</p>
+                        <p class="text-[#f0b90b]">+62 21-1512-7763</p>
+                    </div>
+                </div>
+            </div>
+            <div class="md:col-span-5 text-center md:text-right">
+                <a href="mailto:andreluckytafirdaus2001@gmail.com" class="inline-block text-3xl heading-font border-2 border-[#f0b90b] hover:bg-[#f0b90b] hover:text-black px-12 py-8 rounded-3xl">
+                    andreluckytafirdaus2001@gmail.com
+                </a>
+                <p class="mt-6 text-white/60">+62 8517-4174-743 • West Jakarta, Indonesia</p>
+                <p class="text-xs mt-8 text-white/40">Passport • Police Record • Ready for Web3 roles</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 text-center text-white/40 text-sm">
+        <p>© 2026 Andre Luckyta Firdaus • Dynamic Web CV for Full-Stack Web3, AI Agent, Treasury Wallet &amp; Blockchain Roles</p>
+    </footer>
+
+    <script>
+        const positions = [
+            {
+                id: 0,
+                name: "Full-Stack Web3 Dev",
+                badge: "FULL-STACK WEB3 + TREASURY WALLET + AI",
+                title: "Full-Stack Web3 Developer &amp; AI Agent Specialist",
+                subtitle: "React.js + Supabase + Python + WalletConnect. Implemented treasury wallet, payment gateway, Google Sheets sync, live charts, Python Forex Trading Bot &amp; AI Agents.",
+                aboutTitle: "Full-stack Web3 engineer who ships complete blockchain products.",
+                aboutText: `<p class="mb-6">I develop end-to-end Web3 applications: React.js frontend, Supabase backend, Python automation, and full blockchain wallet + <strong>treasury wallet implementation</strong>. My live platform <a href="https://bellybears.xyz" target="_blank" class="text-[#f0b90b]">bellybears.xyz</a> includes WalletConnect, treasury dashboard, payment gateway, Google Sheets integration, live charts, and AI Agent logic.</p>
+                            <p class="mb-6">Built Python Forex Trading Bot (Exness) and actively trade crypto on Binance &amp; forex on Exness.</p>`,
+                experienceHTML: `
+                    <div class="grid md:grid-cols-12 gap-8 card bg-black border border-white/10 rounded-3xl p-8">
+                        <div class="md:col-span-3"><p class="text-[#f0b90b] font-semibold">Jan 2024 – May 2024</p><p class="text-xl font-semibold">Program Engineer</p><p class="text-white/60">Alf Tech Ventures</p></div>
+                        <div class="md:col-span-9"><ul class="space-y-4 text-white/80"><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Built full-stack LMS web app (React.js frontend + Supabase backend)</li><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Google Sheets integration &amp; live dashboard charts</li></ul></div>
+                    </div>
+                    <div class="grid md:grid-cols-12 gap-8 card bg-black border border-white/10 rounded-3xl p-8">
+                        <div class="md:col-span-3"><p class="text-[#f0b90b] font-semibold">Jan 2024</p><p class="text-xl font-semibold">UI/UX + Frontend</p><p class="text-white/60">SMART RT/RW App</p></div>
+                        <div class="md:col-span-9"><ul class="space-y-4 text-white/80"><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>React.js prototypes + 15% user satisfaction increase</li></ul></div>
+                    </div>`,
+                projectsHTML: `
+                    <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                        <h4 class="font-semibold text-xl mb-2 flex items-center gap-2"><i class="fa-solid fa-wallet text-[#f0b90b]"></i> Belly Bears Web3 Platform</h4>
+                        <p class="text-sm text-[#f0b90b]">2024 – Present • <a href="https://bellybears.xyz" target="_blank" class="underline">bellybears.xyz</a></p>
+                        <p class="mt-6 text-white/70">Full-stack Web3 platform with React frontend + Supabase backend + <strong>WalletConnect treasury wallet implementation</strong> + payment gateway + Google Sheets sync + live charts + AI Agent + Telegram bot.</p>
+                    </div>
+                    <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                        <h4 class="font-semibold text-xl mb-2">Python Forex Trading Bot + AI Agent</h4>
+                        <p class="text-sm text-[#f0b90b]">2024 – Present</p>
+                        <p class="mt-6 text-white/70">Automated trading bot with Exness API, real-time data, risk management, and AI Agent decision engine.</p>
+                    </div>
+                    <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                        <h4 class="font-semibold text-xl mb-2">Retail Inventory System (Thesis)</h4>
+                        <p class="text-sm text-[#f0b90b]">2023</p>
+                        <p class="mt-6 text-white/70">Full-stack website with backend database and reporting charts.</p>
+                    </div>`,
+                skillsHTML: `
+                    <div><h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-4">Frontend</h5><div class="flex flex-wrap gap-2"><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">React.js • JavaScript</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Figma • Tailwind • Charts</span></div></div>
+                    <div><h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-4">Backend &amp; Data</h5><div class="flex flex-wrap gap-2"><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Supabase (Auth, DB, Storage)</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">SQL • DBeaver</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Google Sheets API</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Python (pandas, requests)</span></div></div>
+                    <div><h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-4">Blockchain + Treasury</h5><div class="flex flex-wrap gap-2"><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">WalletConnect • MetaMask</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Treasury Wallet Implementation</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Payment Gateway</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">AI Agent</span></div></div>`
+            },
+            {
+                id: 1,
+                name: "Data Analyst / BI",
+                badge: "DATA ANALYST • BI",
+                title: "Business Intelligence Data Analyst",
+                subtitle: "SQL + Python + React dashboards + Google Sheets + live charts. Delivered 15% efficiency gains and real-time treasury insights.",
+                aboutTitle: "Data that drives Web3 decisions.",
+                aboutText: `<p class="mb-6">Expert in managing corporate databases, building interactive dashboards, ETL pipelines, Google Sheets integration, and turning complex data into visual insights.</p>
+                            <p class="mb-6">Real-world crypto &amp; forex trading experience on Binance &amp; Exness + live treasury analytics in my Web3 project.</p>`,
+                experienceHTML: `
+                    <div class="grid md:grid-cols-12 gap-8 card bg-black border border-white/10 rounded-3xl p-8">
+                        <div class="md:col-span-3"><p class="text-[#f0b90b] font-semibold">Feb 2024 – Aug 2025</p><p class="text-xl font-semibold">Cost Control &amp; Business Planning</p><p class="text-white/60">Tri Alfa Aurum Oil</p></div>
+                        <div class="md:col-span-9"><ul class="space-y-4 text-white/80"><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>SQL + DBeaver + Google Sheets sync • 15% efficiency via ERP &amp; charts</li><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Market &amp; investment analysis with Python + Weka</li></ul></div>
+                    </div>
+                    <div class="grid md:grid-cols-12 gap-8 card bg-black border border-white/10 rounded-3xl p-8">
+                        <div class="md:col-span-3"><p class="text-[#f0b90b] font-semibold">Feb 2020 – Jun 2020</p><p class="text-xl font-semibold">Data Analyst Intern</p><p class="text-white/60">PT Telekomunikasi Indonesia</p></div>
+                        <div class="md:col-span-9"><ul class="space-y-4 text-white/80"><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Oracle + Weka + full ETL pipelines</li><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>React.js interactive dashboards</li></ul></div>
+                    </div>`,
+                projectsHTML: `
+                    <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                        <h4 class="font-semibold text-xl mb-2">Belly Bears Web3 Treasury Dashboard</h4>
+                        <p class="text-sm text-[#f0b90b]">2024 – Present • <a href="https://bellybears.xyz" target="_blank" class="underline">bellybears.xyz</a></p>
+                        <p class="mt-6 text-white/70">Real-time analytics with Supabase + Google Sheets integration + interactive charts.</p>
+                    </div>`,
+                skillsHTML: `
+                    <div><h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-4">BI Tools</h5><div class="flex flex-wrap gap-2"><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">SQL • DBeaver • Google Sheets</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Python (Colab) • Weka</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">React.js Dashboards &amp; Charts</span></div></div>`
+            },
+            {
+                id: 2,
+                name: "Data Engineer",
+                badge: "DATA ENGINEER",
+                title: "Data Engineer",
+                subtitle: "ETL pipelines, Supabase backend, Python automation, Google Sheets sync, and real-time data flows.",
+                aboutTitle: "Scalable data infrastructure for Web3 &amp; AI.",
+                aboutText: `<p class="mb-6">Designed and implemented ETL processes, Supabase backends, Python scripts, and Google Sheets integrations for production-grade data pipelines.</p>
+                            <p class="mb-6">My Web3 platform and Forex Trading Bot handle real-time on-chain, payment, and market data end-to-end.</p>`,
+                experienceHTML: `
+                    <div class="grid md:grid-cols-12 gap-8 card bg-black border border-white/10 rounded-3xl p-8">
+                        <div class="md:col-span-3"><p class="text-[#f0b90b] font-semibold">Feb 2020 – Jun 2020</p><p class="text-xl font-semibold">Data Analyst Intern</p><p class="text-white/60">PT Telekomunikasi Indonesia</p></div>
+                        <div class="md:col-span-9"><ul class="space-y-4 text-white/80"><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Full ETL pipelines + Python automation</li></ul></div>
+                    </div>`,
+                projectsHTML: `
+                    <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                        <h4 class="font-semibold text-xl mb-2">Belly Bears Web3 Data Pipeline</h4>
+                        <p class="text-sm text-[#f0b90b]">2024 – Present • <a href="https://bellybears.xyz" target="_blank" class="underline">bellybears.xyz</a></p>
+                        <p class="mt-6 text-white/70">Supabase + Python + Google Sheets real-time data flows for NFT minting, payments, and treasury.</p>
+                    </div>`,
+                skillsHTML: `
+                    <div><h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-4">Data Engineering</h5><div class="flex flex-wrap gap-2"><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">ETL Pipelines</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Supabase Backend</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Python Automation</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Google Sheets Sync</span></div></div>`
+            },
+            {
+                id: 3,
+                name: "Data Scientist",
+                badge: "DATA SCIENTIST + AI",
+                title: "Data Scientist &amp; AI Agent Specialist",
+                subtitle: "Weka + Python + AI Agent implementation for pattern recognition, market prediction, and automated decision systems.",
+                aboutTitle: "AI Agents + data science for Web3.",
+                aboutText: `<p class="mb-6">Hands-on experience with data mining (Weka), predictive modeling in Python, and building AI Agents for automation (trading insights, community engagement, and recommendation logic).</p>`,
+                experienceHTML: `
+                    <div class="grid md:grid-cols-12 gap-8 card bg-black border border-white/10 rounded-3xl p-8">
+                        <div class="md:col-span-3"><p class="text-[#f0b90b] font-semibold">Feb 2024 – Aug 2025</p><p class="text-xl font-semibold">Cost Control &amp; Business Planning</p><p class="text-white/60">Tri Alfa Aurum Oil</p></div>
+                        <div class="md:col-span-9"><ul class="space-y-4 text-white/80"><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Market research &amp; AI-driven investment analysis (Python + Weka)</li></ul></div>
+                    </div>`,
+                projectsHTML: `
+                    <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                        <h4 class="font-semibold text-xl mb-2">Python Forex Trading Bot + AI Agent</h4>
+                        <p class="text-sm text-[#f0b90b]">2024 – Present</p>
+                        <p class="mt-6 text-white/70">AI Agent that analyzes market data, makes trading decisions, and executes via Exness API.</p>
+                    </div>`,
+                skillsHTML: `
+                    <div><h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-4">Data Science &amp; AI</h5><div class="flex flex-wrap gap-2"><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Weka • Data Mining</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Python (pandas, TA-Lib)</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">AI Agent Development</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Predictive Modeling</span></div></div>`
+            },
+            {
+                id: 4,
+                name: "QA Engineer",
+                badge: "QA ENGINEER",
+                title: "QA Engineer",
+                subtitle: "End-to-end testing for React + Supabase + Python bots + AI Agent systems.",
+                aboutTitle: "Quality-first for fast-moving Web3 products.",
+                aboutText: `<p class="mb-6">Experienced in test case design, regression testing, database validation, API testing (Python bots), and ensuring production quality across full-stack Web3 applications.</p>`,
+                experienceHTML: `
+                    <div class="grid md:grid-cols-12 gap-8 card bg-black border border-white/10 rounded-3xl p-8">
+                        <div class="md:col-span-3"><p class="text-[#f0b90b] font-semibold">Jan 2024 – May 2024</p><p class="text-xl font-semibold">Program Engineer</p><p class="text-white/60">Alf Tech Ventures</p></div>
+                        <div class="md:col-span-9"><ul class="space-y-4 text-white/80"><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Full QA + regression testing (React + Supabase + Python scripts)</li></ul></div>
+                    </div>`,
+                projectsHTML: `
+                    <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                        <h4 class="font-semibold text-xl mb-2">Belly Bears Web3 + Trading Bot QA</h4>
+                        <p class="text-sm text-[#f0b90b]">2024 – Present • <a href="https://bellybears.xyz" target="_blank" class="underline">bellybears.xyz</a></p>
+                        <p class="mt-6 text-white/70">End-to-end testing of payment flows, Supabase, Google Sheets, treasury wallet, and AI Agent logic.</p>
+                    </div>`,
+                skillsHTML: `
+                    <div><h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-4">QA Stack</h5><div class="flex flex-wrap gap-2"><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Test Case Design</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Regression &amp; API Testing</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">SQL Validation</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Python Bot Testing</span></div></div>`
+            }
+        ]
+
+        let currentPosition = 0
+
+        function switchPosition(id) {
+            currentPosition = id
+            const pos = positions[id]
+            
+            document.getElementById('current-role-badge').textContent = pos.badge
+            document.getElementById('hero-title').innerHTML = pos.title
+            document.getElementById('hero-subtitle').innerHTML = pos.subtitle
+            document.getElementById('hero-badge').textContent = pos.badge
+            document.getElementById('about-title').innerHTML = pos.aboutTitle
+            document.getElementById('about-text').innerHTML = pos.aboutText
+            document.getElementById('experience-container').innerHTML = pos.experienceHTML
+            document.getElementById('projects-container').innerHTML = pos.projectsHTML
+            document.getElementById('skills-container').innerHTML = pos.skillsHTML
+            
+            document.querySelectorAll('.position-tab').forEach(t => t.classList.remove('active'))
+            document.getElementById('tab-' + id).classList.add('active')
+            
+            setTimeout(() => {
+                document.querySelectorAll('.card').forEach((card, i) => {
+                    card.style.transitionDelay = (i * 80) + 'ms'
+                    card.classList.add('visible')
+                })
+            }, 100)
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden')
+        }
+        
+        function downloadCV() {
+            alert("✅ CV PDF ready! (Tailored for currently selected Web3 role)")
+        }
+
+        function observeCards() {
+            const cards = document.querySelectorAll('.card')
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible')
+                })
+            }, { threshold: 0.2 })
+            cards.forEach(card => observer.observe(card))
+        }
+
+        window.onload = () => {
+            switchPosition(0)
+            observeCards()
+        }
+    </script>
+</body>
+<!-- FOOTER -->
+<footer class="bg-black py-12 border-t border-white/10">
+    <div class="max-w-screen-2xl mx-auto px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-white/40 text-sm">
+                © 2026 Andre Luckyta Firdaus • Full-Stack Web3 Developer &amp; AI Agent Specialist
+            </p>
+            
+            <div class="flex items-center gap-x-6 text-2xl text-white/60">
+                <a href="https://linkedin.com/in/andreluckytafirdaus" target="_blank" class="hover:text-[#f0b90b]"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/andreluckyta" target="_blank" class="hover:text-[#f0b90b]"><i class="fa-brands fa-github"></i></a>
+                <a href="https://twitter.com/andreluckyta" target="_blank" class="hover:text-[#f0b90b]"><i class="fa-brands fa-x-twitter"></i></a>
+               
+            </div>
+            
+            <p class="text-white/40 text-sm text-right">
+                Jakarta, Indonesia<br>
+                Open to Remote / Web3 Opportunities
+            </p>
+        </div>
+    </div>
+</footer>
+</html>
