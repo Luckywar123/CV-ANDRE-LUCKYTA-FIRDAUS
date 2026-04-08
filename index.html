@@ -117,6 +117,28 @@
         .skill-tag {
             @apply px-5 py-2 bg-white/10 hover:bg-white/20 text-sm rounded-3xl cursor-default;
         }
+        /* Custom Scrollbar for Tabs */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* More attractive tab style */
+        .position-tab {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        .position-tab:hover {
+            background-color: rgba(240, 185, 11, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .position-tab.active {
+            background-color: #f0b90b;
+            color: #000;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(240, 185, 11, 0.4);
+        }
     </style>
 </head>
 <body class="bg-zinc-950 text-white">
@@ -140,13 +162,13 @@
             </div>
             
             <!-- Position Tabs -->
-            <div class="flex items-center gap-x-2 bg-zinc-900 border border-white/10 rounded-3xl p-1 text-sm overflow-x-auto hidden md:flex">
-                <button onclick="switchPosition(0)" id="tab-0" class="position-tab active px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Full-Stack Web3 Dev</button>
-                <button onclick="switchPosition(1)" id="tab-1" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Data Analyst / BI</button>
-                <button onclick="switchPosition(2)" id="tab-2" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Data Engineer</button>
-                <button onclick="switchPosition(3)" id="tab-3" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Data Scientist</button>
-                <button onclick="switchPosition(4)" id="tab-4" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">QA Engineer</button>
-                <button onclick="switchPosition(5)" id="tab-5" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Product Manager</button>
+            <div class="flex items-center gap-x-3 bg-zinc-900/80 border border-white/10 rounded-3xl p-2 text-sm overflow-x-auto scrollbar-hide hidden md:flex">
+                <button onclick="switchPosition(5)" id="tab-5" class="position-tab active px-6 py-3 rounded-3xl text-sm whitespace-nowrap font-medium">Product Manager • PSPO I</button>
+                <button onclick="switchPosition(0)" id="tab-0" class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap">Full-Stack Web3 Dev</button>
+                <button onclick="switchPosition(1)" id="tab-1" class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap">Data Analyst / BI</button>
+                <button onclick="switchPosition(2)" id="tab-2" class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap">Data Engineer</button>
+                <button onclick="switchPosition(3)" id="tab-3" class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap">Data Scientist</button>
+                <button onclick="switchPosition(4)" id="tab-4" class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap">QA Engineer</button>
             </div>
             
             <div class="flex items-center gap-x-4">
@@ -181,23 +203,23 @@
     </nav>
 
     <!-- HERO -->
-    <header id="home" class="hero-bg pt-20 pb-16">
-        <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-12 gap-12 items-center relative z-10">
+    <header id="home" class="hero-bg pt-24 pb-20">
+        <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-12 gap-16 lg:gap-20 items-center relative z-10">
             <div class="md:col-span-7 fade-in">
                 <div class="inline-flex items-center gap-x-2 bg-white/10 text-white text-sm font-medium px-5 py-2 rounded-3xl border border-white/20 mb-6 glow">
                     <i class="fa-solid fa-cube text-[#f0b90b]"></i>
                     <span id="hero-badge">WEB3 FULL-STACK + AI AGENT READY</span>
                 </div>
                 
-                <h1 class="text-6xl md:text-7xl leading-none font-bold heading-font tracking-tighter mb-6">
+                <h1 class="text-6xl md:text-7xl lg:text-8xl leading-none font-bold heading-font tracking-tighter mb-6">
                     Andre Luckyta Firdaus
                 </h1>
                 
-                <p id="hero-title" class="text-4xl md:text-5xl text-[#f0b90b] heading-font mb-8">
+                <p id="hero-title" class="text-4xl md:text-5xl lg:text-6xl text-[#f0b90b] heading-font mb-10">
                     Full-Stack Web3 Developer &amp; AI Agent Specialist
                 </p>
                 
-                <p id="hero-subtitle" class="max-w-xl text-xl text-white/80 mb-10 max-w-xl text-xl text-white/80 mb-10 hero-subtitle">
+                <p id="hero-subtitle" class="max-w-xl text-xl text-white/80 mb-10 max-w-xl text-xl text-white/80 mb-12 hero-subtitle">
                     Computer Science graduate with strong hands-on experience in full-stack Web3 development. 
                     Proficient in React.js, Supabase, Python, WalletConnect, secure treasury wallet implementation, 
                     Google Sheets integration with live charts, and autonomous AI Agents. 
@@ -207,7 +229,7 @@
                     Actively trading cryptocurrencies on Binance and forex on Exness, bringing real-market insights into every project.
                 </p>
                 
-                <div class="flex flex-wrap gap-4">
+                <div class="flex flex-wrap gap-6">
                     <a href="#experience" class="inline-flex items-center gap-x-3 bg-[#f0b90b] hover:bg-amber-400 text-black font-semibold text-lg px-10 py-6 rounded-3xl cta-button inline-flex items-center gap-x-3 bg-[#f0b90b]">
                         <i class="fa-solid fa-chart-line"></i>
                         <span id="cta-button-text">EXPLORE MY STACK</span>
