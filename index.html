@@ -8,6 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+
+    
+
     <!-- Tambahkan ini untuk privacy -->
     <meta name="robots" content="noindex, nofollow">                    <!-- Google & search engine tidak index -->
     <meta name="googlebot" content="noindex, nofollow">
@@ -20,6 +23,11 @@
 
     <title>Andre Luckyta Firdaus | Full-Stack Web3 + AI Agent | Crypto Ready</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FAVICON - Icon Huruf A Oren (sesuai tema) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23f0b90b'/%3E%3Ctext x='50' y='68' font-family='Arial Black, sans-serif' font-size='65' font-weight='900' text-anchor='middle' fill='%23000000'%3EA%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
@@ -105,15 +113,26 @@
 <body class="bg-zinc-950 text-white">
 
     <!-- NAVBAR -->
+    <!-- NAVBAR - UPDATED WITH ORANGE "A" ICON -->
     <nav class="bg-black/80 backdrop-blur-lg border-b border-white/10 sticky top-0 z-50">
         <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
             <div class="flex items-center gap-x-3">
-                <div class="w-9 h-9 bg-gradient-to-br from-[#f0b90b] to-[#ffcc33] rounded-2xl flex items-center justify-center text-black font-bold text-2xl rotate-12 glow">A</div>
-                <h1 class="heading-font text-2xl tracking-tighter">Andre Luckyta Firdaus</h1>
-                <span id="current-role-badge" class="text-xs font-medium px-3 py-1 bg-[#f0b90b]/10 text-[#f0b90b] rounded-3xl border border-[#f0b90b]/30">FULL-STACK WEB3 + AI AGENT</span>
+                <!-- Icon Huruf A - Warna Oren Gradient (sesuai tema) -->
+                <div class="w-10 h-10 bg-gradient-to-br from-[#f0b90b] via-[#ffcc33] to-[#ff9500] 
+                            rounded-2xl flex items-center justify-center text-black font-bold text-3xl 
+                            shadow-lg glow rotate-[-8deg] hover:rotate-0 transition-transform">
+                    A
+                </div>
+                <div>
+                    <h1 class="heading-font text-2xl tracking-tighter text-white">Andre Luckyta Firdaus</h1>
+                </div>
+                <span id="current-role-badge" class="text-xs font-medium px-4 py-1.5 bg-[#f0b90b]/10 text-[#f0b90b] rounded-3xl border border-[#f0b90b]/30">
+                    FULL-STACK WEB3 + AI AGENT
+                </span>
             </div>
             
-            <div class="flex items-center gap-x-2 bg-zinc-900 border border-white/10 rounded-3xl p-1 text-sm overflow-x-auto">
+            <!-- Position Tabs -->
+            <div class="flex items-center gap-x-2 bg-zinc-900 border border-white/10 rounded-3xl p-1 text-sm overflow-x-auto hidden md:flex">
                 <button onclick="switchPosition(0)" id="tab-0" class="position-tab active px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Full-Stack Web3 Dev</button>
                 <button onclick="switchPosition(1)" id="tab-1" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Data Analyst / BI</button>
                 <button onclick="switchPosition(2)" id="tab-2" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Data Engineer</button>
@@ -122,28 +141,31 @@
             </div>
             
             <div class="flex items-center gap-x-4">
-                <a href="mailto:andreluckytafirdaus2001@gmail.com" class="flex items-center gap-x-2 px-6 py-3 bg-white text-black font-semibold rounded-3xl hover:bg-[#f0b90b] hover:text-black">
+                <a href="mailto:andreluckytafirdaus2001@gmail.com" 
+                class="flex items-center gap-x-2 px-6 py-3 bg-white text-black font-semibold rounded-3xl hover:bg-[#f0b90b] hover:text-black transition-all">
                     <i class="fa-solid fa-paper-plane"></i>
                     <span class="hidden sm:inline">GET IN TOUCH</span>
                 </a>
-                <!-- DOWNLOAD BUTTON - REAL PDF DOWNLOAD -->
-                <a href="Asset/CV.pdf" 
-                    download="Andre_Luckyta_Firdaus_CV.pdf"
-                    class="flex items-center gap-x-2 px-5 py-3 border border-[#f0b90b] text-[#f0b90b] font-semibold rounded-3xl hover:bg-[#f0b90b] hover:text-black cta-button">
+                
+                <a href="CV.pdf" 
+                download="Andre_Luckyta_Firdaus_CV.pdf"
+                class="flex items-center gap-x-2 px-5 py-3 border border-[#f0b90b] text-[#f0b90b] font-semibold rounded-3xl hover:bg-[#f0b90b] hover:text-black cta-button">
                     <i class="fa-solid fa-download"></i>
                     <span>DOWNLOAD CV</span>
                 </a>
-                <button onclick="toggleMobileMenu()" class="md:hidden text-2xl"><i class="fa-solid fa-bars"></i></button>
+                
+                <button onclick="toggleMobileMenu()" class="md:hidden text-2xl text-white"><i class="fa-solid fa-bars"></i></button>
             </div>
         </div>
         
+        <!-- Mobile Menu -->
         <div id="mobileMenu" class="hidden md:hidden bg-black border-t border-white/10 px-8 py-6">
             <div class="flex flex-col gap-y-4 text-sm">
                 <a href="#about" class="nav-link">ABOUT</a>
                 <a href="#experience" class="nav-link">EXPERIENCE</a>
                 <a href="#projects" class="nav-link">PROJECTS</a>
                 <a href="#skills" class="nav-link">SKILLS</a>
-                <a href="#cv" class="nav-link">MY CV</a>  
+                <a href="#cv" class="nav-link">MY CV</a>
                 <a href="#education" class="nav-link">EDUCATION</a>
             </div>
         </div>
