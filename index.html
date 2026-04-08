@@ -139,6 +139,16 @@
             font-weight: 700;
             box-shadow: 0 4px 15px rgba(240, 185, 11, 0.4);
         }
+
+        /* Optional: Scrollbar subtle on hover */
+        .scrollbar-hide:hover::-webkit-scrollbar {
+            display: block;
+            height: 4px;
+        }
+        .scrollbar-hide::-webkit-scrollbar-thumb {
+            background-color: #f0b90b;
+            border-radius: 20px;
+        }
     </style>
 </head>
 <body class="bg-zinc-950 text-white">
@@ -161,14 +171,38 @@
                 </span>
             </div>
             
-            <!-- Position Tabs -->
-            <div class="flex items-center gap-x-3 bg-zinc-900/80 border border-white/10 rounded-3xl p-2 text-sm overflow-x-auto scrollbar-hide hidden md:flex">
-                <button onclick="switchPosition(5)" id="tab-5" class="position-tab active px-6 py-3 rounded-3xl text-sm whitespace-nowrap font-medium">Product Manager • PSPO I</button>
-                <button onclick="switchPosition(0)" id="tab-0" class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap">Full-Stack Web3 Dev</button>
-                <button onclick="switchPosition(1)" id="tab-1" class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap">Data Analyst / BI</button>
-                <button onclick="switchPosition(2)" id="tab-2" class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap">Data Engineer</button>
-                <button onclick="switchPosition(3)" id="tab-3" class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap">Data Scientist</button>
-                <button onclick="switchPosition(4)" id="tab-4" class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap">QA Engineer</button>
+            <!-- HORIZONTAL SCROLL TABS - Modern & Clean -->
+            <div class="hidden md:flex items-center bg-zinc-900/80 border border-white/10 rounded-3xl p-2 overflow-x-auto scrollbar-hide scroll-smooth gap-x-2 snap-x snap-mandatory">
+                
+                <button onclick="switchPosition(5)" id="tab-5" 
+                        class="position-tab active px-6 py-3 rounded-3xl text-sm whitespace-nowrap font-medium snap-start">
+                    Product Manager • PSPO I
+                </button>
+                
+                <button onclick="switchPosition(0)" id="tab-0" 
+                        class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap snap-start">
+                    Full-Stack Web3 Dev
+                </button>
+                
+                <button onclick="switchPosition(1)" id="tab-1" 
+                        class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap snap-start">
+                    Data Analyst / BI
+                </button>
+                
+                <button onclick="switchPosition(2)" id="tab-2" 
+                        class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap snap-start">
+                    Data Engineer
+                </button>
+                
+                <button onclick="switchPosition(3)" id="tab-3" 
+                        class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap snap-start">
+                    Data Scientist
+                </button>
+                
+                <button onclick="switchPosition(4)" id="tab-4" 
+                        class="position-tab px-6 py-3 rounded-3xl text-sm whitespace-nowrap snap-start">
+                    QA Engineer
+                </button>
             </div>
             
             <div class="flex items-center gap-x-4">
