@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Andre Luckyta Firdaus – Full-Stack Web3 Developer &amp; AI Agent Specialist | React • Supabase • Python • WalletConnect • Treasury Wallet">
+    <!-- Existing meta tags kamu -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Tambahkan ini untuk privacy -->
+    <meta name="robots" content="noindex, nofollow">                    <!-- Google & search engine tidak index -->
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">                        <!-- Tidak kirim referrer -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Anti-fingerprinting & tracking -->
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=(), geolocation=(), camera=(), microphone=()">
+    <meta http-equiv="X-Permitted-Cross-Domain-Policies" content="none">
+
     <title>Andre Luckyta Firdaus | Full-Stack Web3 + AI Agent | Crypto Ready</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -668,6 +682,26 @@
             observeCards()
         }
     </script>
+
+    <script>
+        // Disable Vercel / third-party tracking jika ada
+        if (window.va) window.va = () => {};                    // Vercel Analytics
+        if (window._paq) window._paq = [];                      // Matomo dll
+        
+        // Respect Do Not Track
+        if (navigator.doNotTrack === "1" || window.doNotTrack === "1") {
+            console.log("%cPrivacy Mode: Tracking disabled", "color: #f0b90b");
+        }
+
+        // Prevent right-click + inspect element (opsional, bukan 100% aman tapi mengganggu)
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I")) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
 </body>
 <!-- FOOTER -->
 <footer class="bg-black py-12 border-t border-white/10">
@@ -690,5 +724,10 @@
             </p>
         </div>
     </div>
+
+    <p class="text-xs text-white/40 mt-8">
+        This website does not collect any personal data or use tracking cookies. 
+        <a href="#" class="text-[#f0b90b]">Privacy Policy</a>
+    </p>
 </footer>
 </html>
