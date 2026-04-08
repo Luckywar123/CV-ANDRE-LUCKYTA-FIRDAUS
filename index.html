@@ -122,7 +122,6 @@
 <body class="bg-zinc-950 text-white">
 
     <!-- NAVBAR -->
-    <!-- NAVBAR - UPDATED WITH ORANGE "A" ICON -->
     <nav class="bg-black/80 backdrop-blur-lg border-b border-white/10 sticky top-0 z-50">
         <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
             <div class="flex items-center gap-x-3">
@@ -147,6 +146,7 @@
                 <button onclick="switchPosition(2)" id="tab-2" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Data Engineer</button>
                 <button onclick="switchPosition(3)" id="tab-3" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Data Scientist</button>
                 <button onclick="switchPosition(4)" id="tab-4" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">QA Engineer</button>
+                <button onclick="switchPosition(5)" id="tab-5" class="position-tab px-5 py-2 rounded-3xl text-xs md:text-sm whitespace-nowrap">Product Manager</button>
             </div>
             
             <div class="flex items-center gap-x-4">
@@ -680,6 +680,39 @@
                     </div>`,
                 skillsHTML: `
                     <div><h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-4">QA Stack</h5><div class="flex flex-wrap gap-2"><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Test Case Design</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Regression &amp; API Testing</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">SQL Validation</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Python Bot Testing</span></div></div>`
+            },
+            {
+                id: 5,
+                name: "Product Manager",
+                badge: "PRODUCT MANAGER • PSPO I",
+                title: "Product Manager | Web3 &amp; AI Products",
+                subtitle: "Certified PSPO I • Led end-to-end product development for live Web3 platform, treasury wallet, and AI trading bot.",
+                aboutTitle: "Product-first leader who ships user-centric Web3 products.",
+                aboutText: `<p class="mb-6">Experienced in product strategy, roadmap planning, and agile product development using Scrum (PSPO I certified). Owned the full product lifecycle of <strong>Belly Bears Web3 Platform</strong> — from user research to launch and iteration.</p>
+                            <p class="mb-6">Skilled in prioritizing features, managing stakeholders, and delivering high-impact blockchain and AI products.</p>`,
+                experienceHTML: `
+                    <div class="grid md:grid-cols-12 gap-8 card bg-black border border-white/10 rounded-3xl p-8">
+                        <div class="md:col-span-3"><p class="text-[#f0b90b] font-semibold">Feb 2024 – Aug 2025</p><p class="text-xl font-semibold">Cost Control &amp; Business Planning</p><p class="text-white/60"><a href="https://www.linkedin.com/company/tri-alfa-aurum-oil" target="_blank" class="hover:text-[#f0b90b] hover:underline">Tri Alfa Aurum Oil</a></p></div>
+                        <div class="md:col-span-9"><ul class="space-y-4 text-white/80"><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Product backlog management &amp; feature prioritization</li><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Stakeholder alignment &amp; business requirement gathering</li></ul></div>
+                    </div>
+                    <div class="grid md:grid-cols-12 gap-8 card bg-black border border-white/10 rounded-3xl p-8">
+                        <div class="md:col-span-3"><p class="text-[#f0b90b] font-semibold">Jan 2024 – Present</p><p class="text-xl font-semibold">Product Owner</p><p class="text-white/60">Belly Bears Web3 Platform</p></div>
+                        <div class="md:col-span-9"><ul class="space-y-4 text-white/80"><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Defined product vision, roadmap, and MVP features</li><li class="flex gap-x-3"><i class="fa-solid fa-check text-[#f0b90b] mt-1"></i>Led cross-functional team (dev + design) using Scrum</li></ul></div>
+                    </div>`,
+                projectsHTML: `
+                    <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                        <h4 class="font-semibold text-xl mb-2 flex items-center gap-2"><i class="fa-solid fa-wallet text-[#f0b90b]"></i> Belly Bears Web3 Platform</h4>
+                        <p class="text-sm text-[#f0b90b]">2024 – Present • Live Product</p>
+                        <p class="mt-6 text-white/70">Led product development from 0 to live platform. Owned user journey, treasury wallet feature, payment flow, and AI Agent integration.</p>
+                    </div>
+                    <div class="card bg-black border border-white/10 rounded-3xl p-8">
+                        <h4 class="font-semibold text-xl mb-2">Python Forex Trading Bot + AI Agent</h4>
+                        <p class="text-sm text-[#f0b90b]">2024 – Present</p>
+                        <p class="mt-6 text-white/70">Defined product requirements, success metrics, and iterative development of automated trading solution.</p>
+                    </div>`,
+                skillsHTML: `
+                    <div><h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-4">Product Management</h5><div class="flex flex-wrap gap-2"><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Product Roadmap</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">User Stories &amp; Backlog</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">PSPO I Certified</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Stakeholder Management</span></div></div>
+                    <div><h5 class="uppercase text-xs tracking-widest text-[#f0b90b] mb-4">Tools</h5><div class="flex flex-wrap gap-2"><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Figma • Jira • Notion</span><span class="px-5 py-2 bg-white/10 rounded-3xl text-sm">Miro • Google Sheets</span></div></div>`
             }
         ]
 
