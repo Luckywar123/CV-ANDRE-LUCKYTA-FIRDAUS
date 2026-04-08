@@ -43,6 +43,15 @@
         body { font-family: 'Inter', system_ui, sans-serif; }
         .heading-font { font-family: 'Space Grotesk', sans-serif; }
         
+        /* Glow effect untuk icon A di navbar */
+        .glow {
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #f0b90b; }
+            to { text-shadow: 0 0 25px #f0b90b, 0 0 40px #ffcc33; }
+        }
+        
         .hero-bg {
             background: linear-gradient(90deg, #0a0a0a 0%, #1a1a2e 100%);
             position: relative;
