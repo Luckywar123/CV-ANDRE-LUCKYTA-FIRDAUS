@@ -407,7 +407,9 @@ export const personalInfo = {
   cvFile: '/CV.pdf',
   passportReady: true,
   policeRecordClear: true,
+  
 }
+
 
 export const education = {
   period: '2019 – 2023',

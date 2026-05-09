@@ -159,32 +159,66 @@ export function renderCVViewer() {
   section.innerHTML = `
     <div class="section">
       <div class="section-header">
-        <span class="section-tag"><i class="fa-solid fa-file-pdf"></i> Document</span>
+        <span class="section-tag"><i class="fa-solid fa-file-pdf"></i> DOCUMENT</span>
         <h2 class="section-title">Curriculum Vitae</h2>
       </div>
+
       <div class="cv-viewer-wrap reveal">
-        <object
-          data="/CV.pdf"
-          type="application/pdf"
-          width="100%"
-          height="860"
-        >
-          <div class="cv-fallback">
-            <i class="fa-solid fa-file-pdf"></i>
-            <h3 style="font-family:var(--font-display); font-size:1.5rem; margin-bottom:1rem">PDF cannot load in this browser</h3>
-            <p style="color:var(--text-muted); margin-bottom:2rem">Download the CV to view full details.</p>
-            <a href="/CV.pdf" download="Andre_Luckyta_Firdaus_CV.pdf" class="btn btn-primary" style="display:inline-flex">
-              <i class="fa-solid fa-download"></i>
-              Download CV PDF
-            </a>
-          </div>
-        </object>
+        <!-- Primary Viewer: iframe (lebih stabil) -->
+        <iframe 
+          src="/CV.pdf" 
+          width="100%" 
+          height="920px"
+          style="border: none; border-radius: 20px; background: #111111;"
+          title="Andre Luckyta Firdaus - Curriculum Vitae"
+        ></iframe>
+
+        <!-- Strong Fallback -->
+        <div class="cv-fallback" style="display:none; text-align:center; padding: 5rem 2rem; background:#1a1a1a; border-radius:20px;">
+          <div style="font-size: 4rem; margin-bottom: 1.5rem;">📄</div>
+          <h3 style="font-family:var(--font-display); font-size:1.6rem; margin-bottom:1rem; color:#fff;">
+            PDF cannot load in this browser
+          </h3>
+          <p style="color:var(--text-muted); margin-bottom:2.5rem; max-width:420px; margin-left:auto; margin-right:auto;">
+            Download the CV to view full details.
+          </p>
+          <a href="/CV.pdf" 
+             download="CV.pdf" 
+             class="btn btn-primary" 
+             style="padding: 1rem 2.5rem; font-size: 1.1rem;">
+            <i class="fa-solid fa-download"></i> 
+            Download CV PDF
+          </a>
+        </div>
       </div>
-      <p style="text-align:center; color:var(--text-dim); font-size:0.75rem; margin-top:1.5rem">
-        Updated April 2026 · Andre Luckyta Firdaus · Computer Science Graduate
+
+      <p style="text-align:center; color:var(--text-dim); font-size:0.78rem; margin-top:1.8rem">
+        Updated May 2026 • Andre Luckyta Firdaus
       </p>
     </div>
   `
+
+  // Auto fallback jika iframe gagal load
+  setTimeout(() => {
+    const iframe = section.querySelector('iframe')
+    const fallback = section.querySelector('.cv-fallback')
+
+    if (iframe) {
+      iframe.onerror = () => {
+        iframe.style.display = 'none'
+        fallback.style.display = 'block'
+      }
+
+      // Tambahan safety: cek setelah beberapa detik
+      setTimeout(() => {
+        if (iframe.offsetHeight < 100) { // iframe gagal render
+          iframe.style.display = 'none'
+          fallback.style.display = 'block'
+        }
+      }, 2500)
+    }
+  }, 800)
+
   return section
 }
 
