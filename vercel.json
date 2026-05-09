@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" },
     { "source": "/CV.pdf", "destination": "/CV.pdf" }
   ],
   "headers": [
@@ -12,7 +12,7 @@
         { "key": "Referrer-Policy", "value": "no-referrer" }
       ]
     }
-  ]
+  ],
 
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
