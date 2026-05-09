@@ -163,48 +163,24 @@ export function renderCVViewer() {
         <h2 class="section-title">Curriculum Vitae</h2>
       </div>
 
-      <div class="cv-viewer-wrap reveal">
+      <div class="cv-viewer-wrap reveal" style="background:#111; padding:2rem; border-radius:20px;">
         <iframe 
-          src="/CV.pdf" 
+          src="/CV.pdf#toolbar=1&navpanes=0&scrollbar=1" 
           width="100%" 
           height="920px"
-          style="border: none; border-radius: 20px; background: #111111;"
-          title="Andre Luckyta Firdaus - Curriculum Vitae"
+          style="border: none; border-radius: 16px; background: #1a1a1a;"
+          title="CV Andre Luckyta Firdaus"
         ></iframe>
-
-        <!-- Fallback -->
-        <div class="cv-fallback" style="display:none; text-align:center; padding: 5rem 2rem; background:#1a1a1a; border-radius:20px;">
-          <div style="font-size: 4rem; margin-bottom: 1.5rem;">📄</div>
-          <h3 style="font-family:var(--font-display); font-size:1.6rem; margin-bottom:1rem; color:#fff;">
-            Cannot display PDF
-          </h3>
-          <a href="/CV.pdf" 
-             download="Andre_Luckyta_Firdaus_CV.pdf" 
-             class="btn btn-primary" 
-             style="padding: 1rem 2.5rem; font-size: 1.1rem;">
-            <i class="fa-solid fa-download"></i> Download CV PDF
-          </a>
-        </div>
       </div>
 
-      <p style="text-align:center; color:var(--text-dim); font-size:0.78rem; margin-top:1.8rem">
-        Updated May 2026 • Andre Luckyta Firdaus
-      </p>
+      <div style="text-align:center; margin-top:2rem">
+        <a href="/CV.pdf" download="Andre_Luckyta_Firdaus_CV.pdf" 
+           class="btn btn-primary" style="font-size:1.1rem; padding:1rem 2rem;">
+          <i class="fa-solid fa-download"></i> Download CV PDF
+        </a>
+      </div>
     </div>
   `
-
-  // Auto fallback if iframe fails
-  setTimeout(() => {
-    const iframe = section.querySelector('iframe')
-    const fallback = section.querySelector('.cv-fallback')
-    
-    if (iframe) {
-      iframe.onerror = () => {
-        iframe.style.display = 'none'
-        fallback.style.display = 'block'
-      }
-    }
-  }, 1000)
 
   return section
 }
