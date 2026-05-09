@@ -163,22 +163,28 @@ export function renderCVViewer() {
         <h2 class="section-title">Curriculum Vitae</h2>
       </div>
 
-      <div class="cv-viewer-wrap reveal" style="background:#111; padding:2rem; border-radius:20px;">
-        <iframe 
-          src="/CV.pdf#toolbar=1&navpanes=0&scrollbar=1" 
-          width="100%" 
-          height="920px"
-          style="border: none; border-radius: 16px; background: #1a1a1a;"
-          title="CV Andre Luckyta Firdaus"
-        ></iframe>
-      </div>
+      <div class="cv-viewer-wrap reveal" style="padding: 2rem 1rem; background: #111; border-radius: 20px; text-align: center;">
+        <div style="margin-bottom: 2rem;">
+          <i class="fa-solid fa-file-pdf" style="font-size: 5rem; color: #f40; opacity: 0.9;"></i>
+        </div>
+        
+        <h3 style="color: white; margin-bottom: 1rem;">Lihat CV Lengkap</h3>
+        <p style="color: #aaa; max-width: 500px; margin: 0 auto 2rem;">
+          PDF Viewer mengalami kendala teknis di Vercel. Silakan download langsung.
+        </p>
 
-      <div style="text-align:center; margin-top:2rem">
-        <a href="/CV.pdf" download="Andre_Luckyta_Firdaus_CV.pdf" 
-           class="btn btn-primary" style="font-size:1.1rem; padding:1rem 2rem;">
-          <i class="fa-solid fa-download"></i> Download CV PDF
+        <a href="/CV.pdf" 
+           download="Andre_Luckyta_Firdaus_CV.pdf" 
+           class="btn btn-primary" 
+           style="font-size: 1.2rem; padding: 1.2rem 3rem; display: inline-flex; align-items: center; gap: 0.8rem;">
+          <i class="fa-solid fa-download"></i> 
+          DOWNLOAD CV PDF
         </a>
       </div>
+
+      <p style="text-align:center; color:#666; margin-top:2rem; font-size:0.9rem">
+        Updated May 2026 • Andre Luckyta Firdaus
+      </p>
     </div>
   `
 
