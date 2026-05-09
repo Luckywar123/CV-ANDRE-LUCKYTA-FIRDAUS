@@ -164,30 +164,25 @@ export function renderCVViewer() {
       </div>
 
       <div class="cv-viewer-wrap reveal">
-        <!-- Primary Viewer: iframe (lebih stabil) -->
         <iframe 
-          src="./public/CV.pdf" 
+          src="/CV.pdf" 
           width="100%" 
           height="920px"
           style="border: none; border-radius: 20px; background: #111111;"
           title="Andre Luckyta Firdaus - Curriculum Vitae"
         ></iframe>
 
-        <!-- Strong Fallback -->
+        <!-- Fallback -->
         <div class="cv-fallback" style="display:none; text-align:center; padding: 5rem 2rem; background:#1a1a1a; border-radius:20px;">
           <div style="font-size: 4rem; margin-bottom: 1.5rem;">📄</div>
           <h3 style="font-family:var(--font-display); font-size:1.6rem; margin-bottom:1rem; color:#fff;">
-            PDF cannot load in this browser
+            Cannot display PDF
           </h3>
-          <p style="color:var(--text-muted); margin-bottom:2.5rem; max-width:420px; margin-left:auto; margin-right:auto;">
-            Download the CV to view full details.
-          </p>
           <a href="/CV.pdf" 
-             download="CV.pdf" 
+             download="Andre_Luckyta_Firdaus_CV.pdf" 
              class="btn btn-primary" 
              style="padding: 1rem 2.5rem; font-size: 1.1rem;">
-            <i class="fa-solid fa-download"></i> 
-            Download CV PDF
+            <i class="fa-solid fa-download"></i> Download CV PDF
           </a>
         </div>
       </div>
@@ -198,26 +193,18 @@ export function renderCVViewer() {
     </div>
   `
 
-  // Auto fallback jika iframe gagal load
+  // Auto fallback if iframe fails
   setTimeout(() => {
     const iframe = section.querySelector('iframe')
     const fallback = section.querySelector('.cv-fallback')
-
+    
     if (iframe) {
       iframe.onerror = () => {
         iframe.style.display = 'none'
         fallback.style.display = 'block'
       }
-
-      // Tambahan safety: cek setelah beberapa detik
-      setTimeout(() => {
-        if (iframe.offsetHeight < 100) { // iframe gagal render
-          iframe.style.display = 'none'
-          fallback.style.display = 'block'
-        }
-      }, 2500)
     }
-  }, 800)
+  }, 1000)
 
   return section
 }
