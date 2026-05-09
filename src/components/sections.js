@@ -166,7 +166,7 @@ export function renderCVViewer() {
       <div class="cv-viewer-wrap reveal">
         <!-- Primary Viewer: iframe (lebih stabil) -->
         <iframe 
-          src="./CV.pdf" 
+          src="./public/CV.pdf" 
           width="100%" 
           height="920px"
           style="border: none; border-radius: 20px; background: #111111;"
