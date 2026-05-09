@@ -1,7 +1,6 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" },
-    { "source": "/CV.pdf", "destination": "/CV.pdf" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {
