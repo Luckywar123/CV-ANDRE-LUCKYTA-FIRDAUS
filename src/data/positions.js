@@ -34,7 +34,7 @@ export const positions = [
         ],
       },
       {
-        period: 'Jan 2024 – Present',
+        period: 'Jan 2026 – April 2026',
         role: 'Product Owner',
         company: 'Belly Bears Web3 Platform',
         items: [
@@ -48,13 +48,13 @@ export const positions = [
       {
         icon: 'fa-solid fa-wallet',
         title: 'Belly Bears Web3 Platform',
-        period: '2024 – Present · <a href="https://bellybears.xyz" target="_blank">bellybears.xyz</a>',
+        period: 'Jan 2026 – April 2026 · <a href="https://bellybears.xyz" target="_blank">bellybears.xyz</a>',
         desc: 'Led product from 0 to live platform. Owned user journey, treasury wallet feature, payment flow, and AI Agent integration using Agile/Scrum methodologies.',
       },
       {
         icon: 'fa-solid fa-robot',
         title: 'Python Forex Trading Bot + AI Agent',
-        period: '2024 – Present',
+        period: 'Nov 2025 – Present',
         desc: 'Defined product requirements, success metrics, and iterative development of an automated trading solution with Exness API and AI decision engine.',
       },
     ],
@@ -115,13 +115,13 @@ export const positions = [
       {
         icon: 'fa-solid fa-wallet',
         title: 'Belly Bears Web3 Platform',
-        period: '2024 – Present · <a href="https://bellybears.xyz" target="_blank">bellybears.xyz</a>',
+        period: 'January 2026 – April 2026 · <a href="https://bellybears.xyz" target="_blank">bellybears.xyz</a>',
         desc: 'Full-stack Web3 platform with React frontend + Supabase backend + WalletConnect treasury wallet + payment gateway + Google Sheets sync + live charts + AI Agent + Telegram bot.',
       },
       {
         icon: 'fa-solid fa-robot',
         title: 'Python Forex Trading Bot + AI Agent',
-        period: '2024 – Present',
+        period: 'Nov 2025 – Present',
         desc: 'Automated trading bot with Exness API, real-time data processing, risk management logic, and AI Agent decision engine for trade execution.',
       },
       {
@@ -193,13 +193,13 @@ export const positions = [
       {
         icon: 'fa-solid fa-gauge-high',
         title: 'Belly Bears Web3 Treasury Dashboard',
-        period: '2024 – Present · <a href="https://bellybears.xyz" target="_blank">bellybears.xyz</a>',
+        period: 'Jan 2026 – April 2026 · <a href="https://bellybears.xyz" target="_blank">bellybears.xyz</a>',
         desc: 'Real-time analytics with Supabase + Google Sheets integration + interactive charts tracking crypto payments and treasury performance.',
       },
       {
         icon: 'fa-solid fa-chart-line',
         title: 'Forex Trading Analytics Bot',
-        period: '2024 – Present',
+        period: 'Nov 2025 – Present',
         desc: 'Real-time market data processing and pattern analysis feeding AI trade decision engine. Live P&L tracking and risk metrics dashboard.',
       },
     ],
@@ -250,13 +250,13 @@ export const positions = [
       {
         icon: 'fa-solid fa-pipe-section',
         title: 'Belly Bears Web3 Data Pipeline',
-        period: '2024 – Present · <a href="https://bellybears.xyz" target="_blank">bellybears.xyz</a>',
+        period: '2026 – April 2026 · <a href="https://bellybears.xyz" target="_blank">bellybears.xyz</a>',
         desc: 'Supabase + Python + Google Sheets real-time data flows for NFT minting, crypto payments, treasury management, and live analytics.',
       },
       {
         icon: 'fa-solid fa-robot',
         title: 'Forex Bot Real-Time Data Pipeline',
-        period: '2024 – Present',
+        period: 'Nov 2025 – Present',
         desc: 'Real-time market tick data ingestion via Exness API, processing & feature engineering feeding the AI decision engine.',
       },
     ],
@@ -307,13 +307,13 @@ export const positions = [
       {
         icon: 'fa-solid fa-robot',
         title: 'Python Forex Trading Bot + AI Agent',
-        period: '2024 – Present',
+        period: 'Nov 2025 – Present',
         desc: 'AI Agent that analyzes real-time market data, detects patterns, makes trading decisions, and executes autonomously via Exness API.',
       },
       {
         icon: 'fa-solid fa-bear',
         title: 'Belly Bears AI Agent',
-        period: '2024 – Present · <a href="https://bellybears.xyz" target="_blank">bellybears.xyz</a>',
+        period: 'Jan 2026 – April 2026 · <a href="https://bellybears.xyz" target="_blank">bellybears.xyz</a>',
         desc: 'AI Agent powering community automation, recommendation logic, and real-time treasury analytics for the Web3 platform.',
       },
     ],
@@ -379,6 +379,77 @@ export const positions = [
         icon: 'fa-solid fa-toolbox',
         category: 'Tools',
         tags: ['DBeaver', 'Postman', 'Git & GitHub', 'Bug Tracking', 'Waterfall & Agile QA'],
+      },
+    ],
+  },
+  // ─── 6: SYSTEM ENGINEER ───────────────────────────────────────
+  {
+    id: 6,
+    tabLabel: 'System Engineer',
+    badge: 'SYSTEM ENGINEER · BANKING',
+    heroIcon: 'fa-solid fa-server',
+    heroTitle: 'System Engineer — Banking Systems (PT BNI)',
+    heroSubtitle: 'End-to-end banking systems, infrastructure & operations',
+    aboutTitle: 'Banking systems engineer who owns end-to-end operational reliability.',
+    aboutHTML: `
+      <p>Hands-on engineer responsible for the full lifecycle of banking systems at PT BNI — from onboarding business flows and architecture design to maintenance, monitoring, and upgrades.</p>
+      <p>Skilled in troubleshooting, system reconciliation, infrastructure provisioning, and deeply understanding banking business processes and logic across Java-based core systems, Oracle databases, Red Hat platforms, and containerised deployments.</p>
+    `,
+    stats: [
+      { number: '1', suffix: '', label: 'Bank Client (PT BNI)' },
+      { number: '99', suffix: '%', label: 'Availability Target' },
+      { number: '24', suffix: '/7', label: 'Monitoring & Support' },
+    ],
+    experience: [
+      {
+        period: 'May 2025 – Present',
+        role: 'System Engineer',
+        company: '<a href="https://www.bni.co.id" target="_blank">PT Bank Negara Indonesia (BNI)</a>',
+        items: [
+          'Mengelola alur bisnis perbankan end-to-end: dari penerimaan transaksi sampai settlement dan reporting',
+          'Maintenance semua sistem perbankan: patching, upgrade, dan capacity planning',
+          'Troubleshooting & fixing bugs pada layanan produksi dan integrasi antar sistem',
+          'Monitoring sistem proaktif, alerting, dan eskalasi untuk menjaga SLA',
+          'Melakukan validasi dan rekonsiliasi data antar sistem BNI untuk memastikan konsistensi ledger dan reporting',
+          'Membangun infrastruktur baru (provisioning) untuk menopang performa dan skalabilitas sistem bank',
+          'Memahami dan mendokumentasikan business process banking serta logic di setiap alur arsitektur sistem',
+          'Bekerja dengan teknologi Docker (containerization), Red Hat (OS), Oracle (DB), dan Java-based core systems',
+        ],
+      },
+      {
+        period: 'Jan 2024 – May 2024',
+        role: 'Program Engineer',
+        company: 'Alf Tech Ventures',
+        items: [
+          'Full QA + regression testing (React + Supabase + Python scripts)',
+          'Test case design and bug tracking for LMS production app',
+          'API testing and database validation for data integrity',
+        ],
+      },
+    ],
+    projects: [
+      {
+        icon: 'fa-solid fa-network-wired',
+        title: 'Banking Systems Reliability & Infra',
+        period: '2025 – Present',
+        desc: 'Provisioned containerized services, improved monitoring, implemented reconciliation jobs, and supported Java/Oracle applications to meet banking SLAs.',
+      },
+    ],
+    skills: [
+      {
+        icon: 'fa-solid fa-gears',
+        category: 'Systems & Infra',
+        tags: ['Docker', 'Red Hat', 'System Provisioning', 'Monitoring & Alerting', 'Capacity Planning', 'High Availability', 'Load Balancing', 'Kubernetes (container orchestration)'],
+      },
+      {
+        icon: 'fa-solid fa-database',
+        category: 'Databases & Platforms',
+        tags: ['Oracle', 'PL/SQL', 'Oracle RMAN', 'Java-based Core Systems', 'Performance Tuning', 'Data Reconciliation', 'API Integrations'],
+      },
+      {
+        icon: 'fa-solid fa-shield-halved',
+        category: 'Operations & Security',
+        tags: ['Incident Response', 'Problem Solving', 'Root Cause Analysis', 'Disaster Recovery', 'Backup & Recovery', 'Scripting (Bash, Python)', 'Logging & Observability (Prometheus/Grafana/ELK)', 'Security & Compliance (PCI-DSS, SELinux)'],
       },
     ],
   },
@@ -456,7 +527,7 @@ export const web3Experience = [
   {
     icon: 'fa-solid fa-robot',
     title: 'Python Forex Trading Bot + AI Agent',
-    period: '2026 – Present',
+    period: 'Nov 2025 – Present',
     items: [
       'Automated trading via Exness API',
       'Real-time market data processing',
