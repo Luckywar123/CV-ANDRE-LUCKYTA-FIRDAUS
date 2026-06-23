@@ -402,7 +402,7 @@ export const positions = [
     ],
     experience: [
       {
-        period: 'May 2025 – Present',
+        period: 'May 2026 – Present',
         role: 'System Engineer',
         company: '<a href="https://www.bni.co.id" target="_blank">PT Bank Negara Indonesia (BNI)</a>',
         items: [
@@ -431,7 +431,7 @@ export const positions = [
       {
         icon: 'fa-solid fa-network-wired',
         title: 'Banking Systems Reliability & Infra',
-        period: '2025 – Present',
+        period: 'May 2026 – Present',
         desc: 'Provisioned containerized services, improved monitoring, implemented reconciliation jobs, and supported Java/Oracle applications to meet banking SLAs.',
       },
     ],
