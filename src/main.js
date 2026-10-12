@@ -4,6 +4,7 @@
 // ============================================================
 
 import './style.css'
+import './upgrade.css'
 
 import { positions } from './data/positions.js'
 
@@ -37,6 +38,8 @@ import {
   renderContact,
 } from './components/sections.js'
 import { renderFooter } from './components/footer.js'
+import { initAllEffects, refreshEffects } from './effects.js'
+import { initChatbot } from './ai-chatbot.js'
 
 // ─── STATE ────────────────────────────────────────────────
 let currentPositionId = 0
@@ -110,7 +113,8 @@ function onTabChange(id) {
     })
     reObserve()
     initMagneticButtons()
-  }, 300)
+    refreshEffects()
+  }, 400)
 }
 
 // ─── INIT SEQUENCE ────────────────────────────────────────
@@ -138,6 +142,8 @@ function init() {
     initScrollReveal()
     initCounters()
     initMagneticButtons()
+    initAllEffects()
+    initChatbot()
   }, 200)
 
   // Smooth scroll for anchor links

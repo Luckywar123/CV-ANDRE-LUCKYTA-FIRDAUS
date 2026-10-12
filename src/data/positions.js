@@ -130,6 +130,36 @@ export const positions = [
         period: '2023',
         desc: 'Full-stack website with backend database, reporting charts, and Waterfall methodology — Universitas Padjadjaran undergraduate thesis.',
       },
+      {
+        icon: 'fa-solid fa-gamepad',
+        title: 'Belly Bears Telegram Game (TON)',
+        period: 'Apr 2026 · <a href="https://github.com/Luckywar123/Belly-Bears-Ton" target="_blank">GitHub</a>',
+        desc: 'Telegram mini-game for the Belly Bears community with TON wallet connect and a Supabase-backed player dashboard.',
+      },
+      {
+        icon: 'fa-solid fa-chart-line',
+        title: 'Trading Fellah — MT5 Trading Bot SaaS',
+        period: '2026 · <a href="https://github.com/Luckywar123/Trading-Fellah" target="_blank">GitHub</a>',
+        desc: 'Multi-tenant SaaS: FastAPI + React dashboard, wallet login, crypto-paid membership, MT5 bridge via MetaApi, and AI trading agents.',
+      },
+      {
+        icon: 'fa-solid fa-building',
+        title: 'RekaLOKA Company Profile',
+        period: '2026 · <a href="https://github.com/Luckywar123/RekaLOKA" target="_blank">GitHub</a>',
+        desc: 'Modular company-profile site with scroll animations, Supabase partnership and review forms, and a built-in FAQ chatbot.',
+      },
+      {
+        icon: 'fa-solid fa-graduation-cap',
+        title: 'KDKMP CAT Exam Module',
+        period: '2026 · <a href="https://github.com/Luckywar123/KDMPModule" target="_blank">GitHub</a>',
+        desc: 'Computer-assisted test practice app with a large question bank and access-code gated modules for the KDKMP Agrinas manager selection.',
+      },
+      {
+        icon: 'fa-solid fa-pen-to-square',
+        title: 'Sinar Prestasi Online Exam System',
+        period: '2024 · <a href="https://github.com/Luckywar123/Sinar-Prestasi" target="_blank">GitHub</a>',
+        desc: 'Laravel exam platform with admin, teacher and student roles, question bank, exam tokens and results.',
+      },
     ],
     skills: [
       {
@@ -450,6 +480,79 @@ export const positions = [
         icon: 'fa-solid fa-shield-halved',
         category: 'Operations & Security',
         tags: ['Incident Response', 'Problem Solving', 'Root Cause Analysis', 'Disaster Recovery', 'Backup & Recovery', 'Scripting (Bash, Python)', 'Logging & Observability (Prometheus/Grafana/ELK)', 'Security & Compliance (PCI-DSS, SELinux)'],
+      },
+    ],
+  },
+
+  // ─── 7: AI ENGINEER ───────────────────────────────────────
+  {
+    id: 7,
+    tabLabel: 'AI Engineer',
+    badge: 'AI ENGINEER • AI AGENTS & AUTOMATION',
+    heroIcon: 'fa-solid fa-microchip',
+    heroTitle: 'AI Engineer | AI Agents & Automation',
+    heroSubtitle: 'Building AI agents and automated trading systems end-to-end — from data pipelines and LLM/API integration to production deployment.',
+    aboutTitle: 'AI agents that actually ship to production.',
+    aboutHTML: `
+      <p>I build <strong>AI agents and automation</strong> that run in real products: a community + treasury analytics agent for a live Web3 platform, an autonomous forex trading bot, and a multi-tenant MT5 trading bot SaaS.</p>
+      <p>Background in data mining (Weka), Python (pandas, scikit-learn), and full-stack development, plus a banking system-engineering background that keeps reliability and monitoring front of mind.</p>
+    `,
+    stats: [
+      { number: '4', suffix: '', label: 'AI / Bot Projects' },
+      { number: '1', suffix: '', label: 'Live Production Platform' },
+    ],
+    experience: [
+      {
+        period: 'Feb 2024 – Aug 2025',
+        role: 'Cost Control & Business Planning',
+        company: '<a href="https://www.linkedin.com/company/tri-alfa-aurum-oil" target="_blank">Tri Alfa Aurum Oil</a>',
+        items: [
+          'Market research & AI-driven investment analysis (Python + Weka)',
+          'Predictive models for cost forecasting and business planning',
+        ],
+      },
+    ],
+    projects: [
+      {
+        icon: 'fa-solid fa-bear',
+        title: 'Belly Bears AI Agent',
+        period: 'Jan 2026 – April 2026 · <a href="https://bellybears.xyz" target="_blank">bellybears.xyz</a>',
+        desc: 'AI Agent powering community automation, recommendation logic, and real-time treasury analytics for the Web3 platform.',
+      },
+      {
+        icon: 'fa-solid fa-robot',
+        title: 'Python Forex Trading Bot + AI Agent',
+        period: 'Nov 2025 – Present',
+        desc: 'AI Agent that analyzes real-time market data, detects patterns, makes trading decisions, and executes autonomously via Exness API.',
+      },
+      {
+        icon: 'fa-solid fa-chart-line',
+        title: 'Trading Fellah — MT5 Trading Bot SaaS',
+        period: '2026 · <a href="https://github.com/Luckywar123/Trading-Fellah" target="_blank">GitHub</a>',
+        desc: 'Multi-tenant MT5 trading platform with an AI agent (news sentiment, trade rationale, behavior profiling), swing / order-block detection, backtest, forward test, and a layered live auto-trade with kill switch.',
+      },
+      {
+        icon: 'fa-solid fa-comments',
+        title: 'RekaLOKA FAQ Chatbot (Semantic Search)',
+        period: '2026 · <a href="https://github.com/Luckywar123/RekaLOKA" target="_blank">GitHub</a>',
+        desc: 'Instant JS FAQ chatbot plus an optional Python API that learns from a FAQ dataset using semantic search (TF-IDF fallback).',
+      },
+    ],
+    skills: [
+      {
+        icon: 'fa-solid fa-brain',
+        category: 'AI & Data',
+        tags: ['AI Agent Development', 'LLM API Integration', 'Python (pandas, scikit-learn, TA-Lib)', 'Weka Data Mining', 'Predictive Modeling'],
+      },
+      {
+        icon: 'fa-solid fa-code',
+        category: 'Engineering',
+        tags: ['Python', 'JavaScript', 'React.js', 'Supabase', 'REST / API Integration', 'Git & GitHub'],
+      },
+      {
+        icon: 'fa-solid fa-gears',
+        category: 'Reliability',
+        tags: ['QA & Regression Testing', 'Monitoring & Alerting', 'Incident Response', 'Risk Management Logic'],
       },
     ],
   },
