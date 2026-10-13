@@ -1,5 +1,6 @@
 // src/ai-chatbot.js
 // Hybrid chatbot: /api/chat (Gemini, key kept server-side) → offline fallback.
+import { getFabDock } from './animations.js'
 import { getFallbackAnswer, getSuggestedQuestions, buildContextText } from './ai-fallback.js'
 
 const ENDPOINT    = import.meta.env.VITE_AI_ENDPOINT || '/api/chat'
@@ -79,7 +80,7 @@ export function initChatbot() {
         <button type="submit" aria-label="Send"><i class="fa-solid fa-paper-plane"></i></button>
       </form>
     </div>`
-  document.body.appendChild(root)
+  getFabDock().appendChild(root)
 
   const panel = root.querySelector('.cvbot-panel')
   const msgs  = root.querySelector('#cvbot-msgs')

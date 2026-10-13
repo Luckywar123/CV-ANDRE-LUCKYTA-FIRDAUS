@@ -20,7 +20,7 @@ export const positions = [
     stats: [
       { number: '1', suffix: '', label: 'Live Web3 Product' },
       { number: '3', suffix: '+', label: 'Years Experience' },
-      { number: '2026', suffix: '', label: 'PSPO I Certified' },
+      { number: '2025', suffix: '', label: 'PSPO I Certified' },
     ],
     experience: [
       {
@@ -595,7 +595,7 @@ export const education = {
 
 export const certifications = [
   { icon: '📜', name: 'Professional Scrum Product Owner I (PSPO I)', sub: 'Scrum.org · March 2025' },
-  { icon: '🇬🇧', name: 'IELTS IDP UKVI General Training', sub: 'Score 5.5 · 2023' },
+  { icon: '🇬🇧', name: 'IELTS IDP UKVI General Training', sub: 'Overall Band 5.5 · Feb 2025' },
   { icon: '💻', name: 'Java Back-End Bootcamp', sub: 'JuaraCoding · Oct 2023 – Jan 2024' },
 ]
 
@@ -644,6 +644,6 @@ export const references = [
   {
     name: 'Nana Rusyana',
     title: 'TM Maintenance · PT Pertamina Hulu Rokan',
-    phone: '+62 21-1512-7763',
+    phone: '+62 821-1512-7763',
   },
 ]

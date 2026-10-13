@@ -95,8 +95,10 @@ export function renderHero(position) {
   const photoImg   = section.querySelector('#hero-photo')
   const photoDots  = section.querySelectorAll('.photo-dot')
 
+  let lensBusy = false
+
   function swapPhoto(index) {
-    if (!photoImg) return
+    if (!photoImg || lensBusy) return
     currentPhotoIndex = (index + photos.length) % photos.length
 
     // Animate out
@@ -114,12 +116,127 @@ export function renderHero(position) {
       photoDots.forEach((dot, i) => {
         dot.classList.toggle('active', i === currentPhotoIndex)
       })
+      refreshPeek()
     }, 350)
   }
 
-  // Click photo frame to go next
-  photoFrame.addEventListener('click', () => {
-    swapPhoto(currentPhotoIndex + 1)
+  // ─── LENS PEEK ──────────────────────────────────────────
+  // Hover: a soft circle around the cursor shows the NEXT photo.
+  // Click: that circle expands from the cursor until it becomes the photo.
+  const photoInner = section.querySelector('.photo-inner')
+  const peek = document.createElement('img')
+  peek.className = 'photo-peek'
+  peek.alt = ''
+  peek.draggable = false
+  peek.setAttribute('aria-hidden', 'true')
+  const ring = document.createElement('div')
+  ring.className = 'photo-lens'
+  photoInner.append(peek, ring)
+
+  const LENS_R = 80
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const canLens = photos.length > 1 && !reduceMotion
+  const lens = { x: 0, y: 0, r: 0, tx: 0, ty: 0, tr: 0 }
+  let raf = null, hovering = false, expanding = false
+
+  const nextIdx = () => (currentPhotoIndex + 1) % photos.length
+  function refreshPeek() { peek.src = getPhotoSrc(nextIdx()) }
+  refreshPeek()
+
+  function paint() {
+    const r = Math.max(lens.r, 0)
+    peek.style.clipPath = `circle(${r}px at ${lens.x}px ${lens.y}px)`
+    ring.style.width = ring.style.height = r * 2 + 'px'
+    ring.style.transform = `translate(${lens.x - r}px, ${lens.y - r}px)`
+  }
+  function tick() {
+    if (!expanding) {
+      lens.x += (lens.tx - lens.x) * 0.25
+      lens.y += (lens.ty - lens.y) * 0.25
+      lens.r += (lens.tr - lens.r) * 0.18
+      if (lens.tr === 0 && lens.r < 0.5) lens.r = 0
+    }
+    paint()
+    const idle = !expanding && lens.tr === 0 && lens.r === 0
+    raf = idle ? null : requestAnimationFrame(tick)
+  }
+  const kick = () => { if (!raf) raf = requestAnimationFrame(tick) }
+  const localPoint = e => {
+    const b = photoInner.getBoundingClientRect()
+    return { x: e.clientX - b.left, y: e.clientY - b.top }
+  }
+
+  photoFrame.addEventListener('pointerenter', e => {
+    if (e.pointerType !== 'mouse' || !canLens || lensBusy) return
+    hovering = true
+    const p = localPoint(e)
+    lens.x = lens.tx = p.x
+    lens.y = lens.ty = p.y
+    lens.r = 0
+    lens.tr = LENS_R
+    photoFrame.classList.add('lens-on')
+    kick()
+  })
+  photoFrame.addEventListener('pointermove', e => {
+    if (!hovering) return
+    const p = localPoint(e)
+    lens.tx = p.x
+    lens.ty = p.y
+    if (!expanding) kick()
+  })
+  photoFrame.addEventListener('pointerleave', () => {
+    hovering = false
+    if (expanding) return
+    lens.tr = 0
+    photoFrame.classList.remove('lens-on')
+    kick()
+  })
+
+  photoFrame.addEventListener('click', async e => {
+    if (lensBusy) return
+    if (!canLens) { swapPhoto(currentPhotoIndex + 1); return }
+
+    lensBusy = true
+    expanding = true
+    const b = photoInner.getBoundingClientRect()
+    const hasPoint = e.clientX || e.clientY
+    const px = hasPoint ? e.clientX - b.left : b.width / 2
+    const py = hasPoint ? e.clientY - b.top : b.height / 2
+    if (!hovering) { lens.x = px; lens.y = py; lens.r = 0 } // touch: start at the tap
+    refreshPeek()
+    try { await peek.decode() } catch {}
+    photoFrame.classList.add('lens-on')
+
+    const from = { x: lens.x, y: lens.y, r: lens.r }
+    const maxR = Math.hypot(Math.max(px, b.width - px), Math.max(py, b.height - py)) + 8
+    const t0 = performance.now(), dur = 900
+    await new Promise(done => {
+      const step = now => {
+        const k = Math.min(1, (now - t0) / dur)
+        const ease = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2 // ease-in-out: ripple is clearly visible
+        lens.x = from.x + (px - from.x) * ease
+        lens.y = from.y + (py - from.y) * ease
+        lens.r = from.r + (maxR - from.r) * ease
+        paint()
+        k < 1 ? requestAnimationFrame(step) : done()
+      }
+      requestAnimationFrame(step)
+    })
+
+    // The expanded circle already shows the new photo — make it permanent
+    currentPhotoIndex = nextIdx()
+    photoImg.src = getPhotoSrc(currentPhotoIndex)
+    try { await photoImg.decode() } catch {}
+    photoDots.forEach((d, i) => d.classList.toggle('active', i === currentPhotoIndex))
+
+    lens.x = lens.tx; lens.y = lens.ty
+    lens.r = 0
+    lens.tr = hovering ? LENS_R : 0
+    expanding = false
+    lensBusy = false
+    refreshPeek()
+    photoFrame.classList.toggle('lens-on', hovering)
+    kick()
   })
 
   // Click dots to jump

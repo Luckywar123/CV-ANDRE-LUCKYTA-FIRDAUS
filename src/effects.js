@@ -46,7 +46,7 @@ export function initParallax() {
 // ─── 3D TILT (idempotent, desktop only) ───────────────────
 export function initTilt() {
   if (reduced() || !fine()) return
-  document.querySelectorAll('.card:not(.card-exp), .photo-frame').forEach(el => {
+  document.querySelectorAll('.card:not(.card-exp)').forEach(el => {
     if (el.vanillaTilt) return
     VanillaTilt.init(el, { max: 7, speed: 500, glare: true, 'max-glare': 0.18, scale: 1.015 })
   })
@@ -95,6 +95,41 @@ export function initTimeline() {
   })
 }
 
+// ─── NAV TABS: wheel → horizontal scroll, edge fades ──────
+export function initNavScroll() {
+  const tabs = document.getElementById('nav-tabs')
+  if (!tabs) return
+  const update = () => {
+    const max = tabs.scrollWidth - tabs.clientWidth
+    tabs.classList.toggle('fade-l', tabs.scrollLeft > 4)
+    tabs.classList.toggle('fade-r', max > 4 && tabs.scrollLeft < max - 4)
+  }
+  tabs.addEventListener('scroll', update, { passive: true })
+  window.addEventListener('resize', update)
+  tabs.addEventListener('wheel', e => {
+    if (tabs.scrollWidth <= tabs.clientWidth) return
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      e.preventDefault()
+      tabs.scrollLeft += e.deltaY
+    }
+  }, { passive: false })
+  // drag to scroll with the mouse
+  let down = false, startX = 0, startLeft = 0, moved = false
+  tabs.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse') return
+    down = true; moved = false; startX = e.clientX; startLeft = tabs.scrollLeft
+  })
+  window.addEventListener('pointermove', e => {
+    if (!down) return
+    const dx = e.clientX - startX
+    if (Math.abs(dx) > 5) moved = true
+    if (moved) tabs.scrollLeft = startLeft - dx
+  })
+  window.addEventListener('pointerup', () => { down = false })
+  tabs.addEventListener('click', e => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false } }, true)
+  setTimeout(update, 100)
+}
+
 export function refreshEffects() {
   initTilt()
   ScrollTrigger.refresh()
@@ -104,6 +139,7 @@ export function initAllEffects() {
   hidePreloader()
   initNavbarScroll()
   initMagneticNav()
+  initNavScroll()
   initScrollSpy()
   initParallax()
   initTimeline()

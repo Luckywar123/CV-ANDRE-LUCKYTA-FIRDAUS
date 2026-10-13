@@ -307,41 +307,26 @@ export function initProgressBar() {
 }
 
 // ─── BACK TO TOP BUTTON ───────────────────────────────────
+// Shared bottom-right dock: floating buttons stack here instead of overlapping
+export function getFabDock() {
+  let dock = document.getElementById('fab-dock')
+  if (!dock) {
+    dock = document.createElement('div')
+    dock.id = 'fab-dock'
+    document.body.appendChild(dock)
+  }
+  return dock
+}
+
 export function initBackToTop() {
   const btn = document.createElement('button')
-  btn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>'
-  btn.style.cssText = `
-    position: fixed; bottom: 2rem; right: 2rem;
-    width: 48px; height: 48px;
-    background: #f0b90b; color: #000;
-    border: none; border-radius: 50%;
-    font-size: 1rem; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 20px rgba(240,185,11,0.4);
-    transform: translateY(100px); opacity: 0;
-    transition: transform 0.4s, opacity 0.4s, box-shadow 0.3s;
-    z-index: 500;
-  `
-
+  btn.className = 'back-to-top'
+  btn.setAttribute('aria-label', 'Back to top')
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>'
   btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }))
-  btn.addEventListener('mouseenter', () => {
-    btn.style.boxShadow = '0 8px 30px rgba(240,185,11,0.6)'
-    btn.style.transform = 'translateY(0) scale(1.1)'
-  })
-  btn.addEventListener('mouseleave', () => {
-    btn.style.boxShadow = '0 4px 20px rgba(240,185,11,0.4)'
-    btn.style.transform = 'translateY(0) scale(1)'
-  })
+  getFabDock().prepend(btn) // always the top item of the stack
 
-  document.body.appendChild(btn)
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) {
-      btn.style.transform = 'translateY(0)'
-      btn.style.opacity = '1'
-    } else {
-      btn.style.transform = 'translateY(100px)'
-      btn.style.opacity = '0'
-    }
-  })
+  const update = () => btn.classList.toggle('visible', window.scrollY > 400)
+  window.addEventListener('scroll', update, { passive: true })
+  update()
 }
