@@ -40,6 +40,7 @@ import {
 import { renderFooter } from './components/footer.js'
 import { initAllEffects, refreshEffects } from './effects.js'
 import { initChatbot } from './ai-chatbot.js'
+import { initMusic } from './music.js'
 
 // ─── STATE ────────────────────────────────────────────────
 let currentPositionId = 0
@@ -144,6 +145,7 @@ function init() {
     initMagneticButtons()
     initAllEffects()
     initChatbot()
+    initMusic()
   }, 200)
 
   // Smooth scroll for anchor links

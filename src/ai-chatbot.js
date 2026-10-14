@@ -5,10 +5,19 @@ import { getFallbackAnswer, getSuggestedQuestions, buildContextText } from './ai
 
 const ENDPOINT    = import.meta.env.VITE_AI_ENDPOINT || '/api/chat'
 const DEV_KEY     = import.meta.env.DEV ? (import.meta.env.VITE_GEMINI_KEY || '') : '' // local dev only
-const DAILY_LIMIT = 20
-const MODEL       = 'gemini-2.5-flash'
+const DEV_MODEL   = 'gemini-3.5-flash'
+const DAILY_LIMIT = 30
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
+const linkify = t => esc(t).replace(/(https?:\/\/[^\s<)]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
+
+const REASONS = {
+  not_configured: 'offline · API key belum diset di Vercel',
+  quota: 'offline · kuota Gemini habis',
+  bad_key: 'offline · API key ditolak Google',
+  rate_limited: 'offline · terlalu banyak pesan, coba lagi nanti',
+  upstream: 'offline · Gemini sedang error',
+}
 
 function usedToday() {
   const today = new Date().toDateString()
@@ -25,68 +34,72 @@ function bump() {
   try { localStorage.setItem('cvbot_count', String(usedToday() + 1)) } catch {}
 }
 
-async function askAI(message) {
-  // 1) serverless endpoint
+// returns { text } on success or { error } with a reason code
+async function askAI(message, history) {
   try {
     const r = await fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ message, history }),
     })
     if (r.ok) {
       const { text } = await r.json()
-      if (text) return { text, ai: true }
+      if (text) return { text }
+      return { error: 'upstream' }
     }
+    let code = ''
+    try { code = (await r.json()).error } catch {}
+    if (code && REASONS[code]) { if (code !== 'not_configured' || !DEV_KEY) return { error: code } }
   } catch {}
-  // 2) direct key — dev only
+  // direct key — local dev only (never shipped to production)
   if (DEV_KEY) {
     try {
-      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
+      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${DEV_MODEL}:generateContent`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-goog-api-key': DEV_KEY },
         body: JSON.stringify({
-          systemInstruction: { parts: [{ text: 'Asisten CV Andre Luckyta Firdaus. Jawab singkat, hanya dari data ini:\n' + buildContextText() }] },
-          contents: [{ role: 'user', parts: [{ text: message }] }],
-          generationConfig: { temperature: 0.4, maxOutputTokens: 300 },
+          systemInstruction: { parts: [{ text: 'Asisten CV Andre Luckyta Firdaus. Jawab singkat dan ramah, hanya dari data ini:\n' + buildContextText() }] },
+          contents: [...history.map(h => ({ role: h.role === 'user' ? 'user' : 'model', parts: [{ text: h.text }] })), { role: 'user', parts: [{ text: message }] }],
+          generationConfig: { maxOutputTokens: 700, thinkingConfig: { thinkingLevel: 'low' } },
         }),
       })
       if (r.ok) {
         const d = await r.json()
-        const text = d.candidates?.[0]?.content?.parts?.map(p => p.text).join('')
-        if (text) return { text, ai: true }
+        const text = (d.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join('').trim()
+        if (text) return { text }
       }
     } catch {}
   }
-  return null
+  return { error: 'offline' }
 }
 
 export function initChatbot() {
   if (document.getElementById('cvbot')) return
+  const chips = getSuggestedQuestions().sort(() => Math.random() - 0.5).slice(0, 4)
   const root = document.createElement('div')
   root.id = 'cvbot'
   root.innerHTML = `
     <button class="cvbot-toggle" aria-label="Open CV assistant"><i class="fa-solid fa-comments"></i><span>Tanya AI</span></button>
     <div class="cvbot-panel" role="dialog" aria-label="CV assistant" hidden>
       <div class="cvbot-head">
-        <div><strong>CV Assistant</strong><small id="cvbot-mode">online</small></div>
+        <div><strong>CV Assistant</strong><small id="cvbot-mode">siap membantu</small></div>
         <button class="cvbot-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="cvbot-msgs" id="cvbot-msgs">
-        <div class="cvbot-msg bot">Hai! Aku asisten CV Andre. Tanya soal pendidikan, skill, proyek, atau kontak.</div>
-      </div>
-      <div class="cvbot-chips">${getSuggestedQuestions().map(q => `<button class="cvbot-chip">${esc(q)}</button>`).join('')}</div>
+      <div class="cvbot-msgs" id="cvbot-msgs"></div>
+      <div class="cvbot-chips">${chips.map(q => `<button class="cvbot-chip">${esc(q)}</button>`).join('')}</div>
       <form class="cvbot-form" autocomplete="off">
-        <input id="cvbot-input" maxlength="300" placeholder="Tanya sesuatu..." />
+        <input id="cvbot-input" maxlength="300" placeholder="Tanya atau sapa aku..." />
         <button type="submit" aria-label="Send"><i class="fa-solid fa-paper-plane"></i></button>
       </form>
     </div>`
-  getFabDock().appendChild(root)
+  getFabDock('right').appendChild(root)
 
   const panel = root.querySelector('.cvbot-panel')
   const msgs  = root.querySelector('#cvbot-msgs')
   const input = root.querySelector('#cvbot-input')
   const mode  = root.querySelector('#cvbot-mode')
   const open  = v => { panel.hidden = !v; if (v) input.focus() }
+  const history = []
 
   root.querySelector('.cvbot-toggle').onclick = () => open(panel.hidden)
   root.querySelector('.cvbot-close').onclick = () => open(false)
@@ -95,26 +108,37 @@ export function initChatbot() {
   const add = (text, cls) => {
     const d = document.createElement('div')
     d.className = `cvbot-msg ${cls}`
-    d.textContent = text
+    if (cls.includes('bot') && !cls.includes('loading')) d.innerHTML = linkify(text)
+    else d.textContent = text
     msgs.appendChild(d)
     msgs.scrollTop = msgs.scrollHeight
     return d
   }
+  add('Halo! 👋 Aku asisten CV Andre. Tanya soal pengalaman, skill, proyek, pendidikan, atau kontak — atau sapa aja dulu, boleh kok 😄', 'bot')
 
+  let busy = false
   async function send(text) {
     text = text.trim()
-    if (!text) return
+    if (!text || busy) return
+    busy = true
     add(text, 'user')
     input.value = ''
     const loading = add('…', 'bot loading')
-    let reply = null
+    let reply = { error: 'quota_local' }
     if (usedToday() < DAILY_LIMIT) {
-      reply = await askAI(text)
-      if (reply) bump()
+      reply = await askAI(text, history.slice(-6))
+      if (reply.text) bump()
     }
     loading.remove()
-    if (reply) { add(reply.text, 'bot'); mode.textContent = 'AI online' }
-    else { add(getFallbackAnswer(text), 'bot'); mode.textContent = 'offline mode' }
+    let answer
+    if (reply.text) { answer = reply.text; mode.textContent = 'AI online · Gemini' }
+    else {
+      answer = getFallbackAnswer(text)
+      mode.textContent = reply.error === 'quota_local' ? 'offline · batas harian tercapai' : (REASONS[reply.error] || 'offline mode')
+    }
+    add(answer, 'bot')
+    history.push({ role: 'user', text }, { role: 'bot', text: answer })
+    busy = false
   }
 
   root.querySelector('.cvbot-form').addEventListener('submit', e => { e.preventDefault(); send(input.value) })

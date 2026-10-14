@@ -1,6 +1,7 @@
 // src/components/hero.js
 import { photos, personalInfo } from '../data/positions.js'
 import { scrambleText, animateCounter } from '../animations.js'
+import { createSparkles } from '../sparkles.js'
 
 let currentPhotoIndex = 0
 
@@ -132,6 +133,7 @@ export function renderHero(position) {
   const ring = document.createElement('div')
   ring.className = 'photo-lens'
   photoInner.append(peek, ring)
+  const sparks = (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && photos.length > 1) ? createSparkles(photoInner) : null
 
   const LENS_R = 80
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -157,6 +159,7 @@ export function renderHero(position) {
       if (lens.tr === 0 && lens.r < 0.5) lens.r = 0
     }
     paint()
+    if (sparks && !expanding && lens.tr > 0 && lens.r > 24 && Math.random() < 0.8) sparks.emitLens(lens.x, lens.y, lens.r, 2)
     const idle = !expanding && lens.tr === 0 && lens.r === 0
     raf = idle ? null : requestAnimationFrame(tick)
   }
@@ -180,6 +183,7 @@ export function renderHero(position) {
   photoFrame.addEventListener('pointermove', e => {
     if (!hovering) return
     const p = localPoint(e)
+    if (sparks && !expanding) sparks.trail(p.x, p.y, Math.hypot(p.x - lens.tx, p.y - lens.ty))
     lens.tx = p.x
     lens.ty = p.y
     if (!expanding) kick()
@@ -206,6 +210,7 @@ export function renderHero(position) {
     refreshPeek()
     try { await peek.decode() } catch {}
     photoFrame.classList.add('lens-on')
+    if (sparks) sparks.burst(px, py, 34)
 
     const from = { x: lens.x, y: lens.y, r: lens.r }
     const maxR = Math.hypot(Math.max(px, b.width - px), Math.max(py, b.height - py)) + 8
@@ -218,6 +223,7 @@ export function renderHero(position) {
         lens.y = from.y + (py - from.y) * ease
         lens.r = from.r + (maxR - from.r) * ease
         paint()
+        if (sparks && k < 0.92) sparks.emitRing(lens.x, lens.y, lens.r, 5)
         k < 1 ? requestAnimationFrame(step) : done()
       }
       requestAnimationFrame(step)

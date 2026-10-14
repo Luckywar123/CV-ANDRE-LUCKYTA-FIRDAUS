@@ -174,10 +174,9 @@ body.modal-open { overflow: hidden; }
 }
 
 /* ─── FLOATING BUTTON DOCK (back-to-top + chatbot, stacks instead of overlapping) ─── */
-#fab-dock {
-  position: fixed; right: 20px; bottom: 20px; z-index: 9000;
-  display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
-}
+.fab-dock { position: fixed; bottom: 20px; z-index: 9000; display: flex; flex-direction: column; gap: 12px; }
+#fab-dock { right: 20px; align-items: flex-end; }          /* back-to-top + AI assistant */
+#fab-dock-left { left: 20px; align-items: flex-start; }    /* music player */
 .back-to-top {
   width: 44px; height: 44px; border: 0; border-radius: 50%; cursor: pointer;
   display: grid; place-items: center; font-size: .95rem;
@@ -187,7 +186,7 @@ body.modal-open { overflow: hidden; }
 }
 .back-to-top:hover { background: var(--gold); color: #000; transform: translateY(-3px); }
 .back-to-top:not(.visible) { height: 0; margin-bottom: -12px; opacity: 0; pointer-events: none; transform: scale(.6); border-width: 0; overflow: hidden; }
-@media (max-width: 600px) { #fab-dock { right: 14px; bottom: 14px; } }
+@media (max-width: 600px) { #fab-dock { right: 14px; bottom: 14px; } #fab-dock-left { left: 14px; bottom: 14px; } }
 /* any future floating button (e.g. a music player): getFabDock().appendChild(btn) */
 
 /* ─── NAV TABS: themed scrollbar + edge fades ─── */
@@ -227,3 +226,36 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(var(--gold), var(--o
 }
 .photo-frame.lens-on .photo-lens { opacity: 1; }
 .photo-hint { z-index: 4; }
+
+/* ─── MUSIC PLAYER (left dock) ─── */
+#cv-music {
+  display: flex; align-items: center; gap: 0; height: 44px; padding: 0 6px 0 0; border-radius: 999px;
+  background: rgba(20,20,20,.82); border: 1px solid var(--border-gold);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  box-shadow: 0 6px 22px rgba(0,0,0,.45); transition: border-color .25s, box-shadow .25s;
+}
+#cv-music.playing { border-color: var(--gold); box-shadow: 0 6px 26px rgba(240,185,11,.28); }
+.music-btn {
+  display: flex; align-items: center; gap: .55rem; height: 100%; padding: 0 1rem 0 .95rem; border: 0; border-radius: 999px;
+  background: none; color: var(--gold); font: 600 .82rem var(--font-body); cursor: pointer;
+}
+.music-btn:disabled { opacity: .45; cursor: not-allowed; }
+.music-btn .ic-pause, #cv-music.playing .music-btn .ic-play { display: none; }
+#cv-music.playing .music-btn .ic-pause { display: block; }
+.eq { display: none; align-items: flex-end; gap: 2px; height: 14px; }
+#cv-music.playing .eq { display: inline-flex; }
+.eq i { width: 2.5px; height: 100%; border-radius: 2px; background: var(--gold); transform-origin: bottom; animation: eqBar 1s ease-in-out infinite; }
+.eq i:nth-child(2) { animation-delay: -.3s; } .eq i:nth-child(3) { animation-delay: -.6s; } .eq i:nth-child(4) { animation-delay: -.15s; }
+@keyframes eqBar { 0%, 100% { transform: scaleY(.25); } 50% { transform: scaleY(1); } }
+.music-vol {
+  width: 0; opacity: 0; margin: 0; padding: 0; -webkit-appearance: none; appearance: none; height: 4px; border-radius: 99px;
+  background: rgba(255,255,255,.14); cursor: pointer; transition: width .3s var(--ease-out-expo), opacity .25s, margin .3s;
+}
+#cv-music:hover .music-vol, #cv-music:focus-within .music-vol, #cv-music.playing:hover .music-vol { width: 84px; opacity: 1; margin: 0 .55rem 0 .1rem; }
+.music-vol::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); border: 0; box-shadow: 0 0 8px rgba(240,185,11,.6); }
+.music-vol::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--gold); border: 0; }
+@media (max-width: 600px) { .music-label { display: none; } .music-btn { padding: 0 .9rem; } .music-vol { display: none; } }
+
+/* ─── PHOTO SPARKLES ─── */
+.photo-sparkles { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; }
+.cvbot-msg a { color: inherit; text-decoration: underline; word-break: break-all; }

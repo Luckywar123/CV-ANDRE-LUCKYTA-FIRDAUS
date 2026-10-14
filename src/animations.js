@@ -308,11 +308,13 @@ export function initProgressBar() {
 
 // ─── BACK TO TOP BUTTON ───────────────────────────────────
 // Shared bottom-right dock: floating buttons stack here instead of overlapping
-export function getFabDock() {
-  let dock = document.getElementById('fab-dock')
+export function getFabDock(side = 'right') {
+  const id = side === 'left' ? 'fab-dock-left' : 'fab-dock'
+  let dock = document.getElementById(id)
   if (!dock) {
     dock = document.createElement('div')
-    dock.id = 'fab-dock'
+    dock.id = id
+    dock.className = 'fab-dock'
     document.body.appendChild(dock)
   }
   return dock
@@ -324,7 +326,7 @@ export function initBackToTop() {
   btn.setAttribute('aria-label', 'Back to top')
   btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>'
   btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }))
-  getFabDock().prepend(btn) // always the top item of the stack
+  getFabDock('right').prepend(btn) // always the top item of the stack
 
   const update = () => btn.classList.toggle('visible', window.scrollY > 400)
   window.addEventListener('scroll', update, { passive: true })
