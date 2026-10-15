@@ -138,7 +138,8 @@ export function renderHero(position) {
   const LENS_R = 80
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const canLens = photos.length > 1 && !reduceMotion
-  const lens = { x: 0, y: 0, r: 0, tx: 0, ty: 0, tr: 0 }
+  const MAG = 1.14 // magnification inside the lens (optical illusion)
+  const lens = { x: 0, y: 0, r: 0, tx: 0, ty: 0, tr: 0, m: MAG }
   let raf = null, hovering = false, expanding = false
 
   const nextIdx = () => (currentPhotoIndex + 1) % photos.length
@@ -147,7 +148,10 @@ export function renderHero(position) {
 
   function paint() {
     const r = Math.max(lens.r, 0)
-    peek.style.clipPath = `circle(${r}px at ${lens.x}px ${lens.y}px)`
+    // scale about the lens centre + shrink the clip by the same factor => net radius stays r, content looks magnified
+    peek.style.transformOrigin = `${lens.x}px ${lens.y}px`
+    peek.style.transform = `scale(${lens.m})`
+    peek.style.clipPath = `circle(${r / lens.m}px at ${lens.x}px ${lens.y}px)`
     ring.style.width = ring.style.height = r * 2 + 'px'
     ring.style.transform = `translate(${lens.x - r}px, ${lens.y - r}px)`
   }
@@ -159,7 +163,10 @@ export function renderHero(position) {
       if (lens.tr === 0 && lens.r < 0.5) lens.r = 0
     }
     paint()
-    if (sparks && !expanding && lens.tr > 0 && lens.r > 24 && Math.random() < 0.8) sparks.emitLens(lens.x, lens.y, lens.r, 2)
+    if (sparks && !expanding && lens.tr > 0 && lens.r > 24) {
+      if (Math.random() < 0.85) sparks.emitOrbit(lens.x, lens.y, lens.r, 2)   // swirl around the rim
+      if (Math.random() < 0.45) sparks.emitLens(lens.x, lens.y, lens.r, 1)    // a few inside
+    }
     const idle = !expanding && lens.tr === 0 && lens.r === 0
     raf = idle ? null : requestAnimationFrame(tick)
   }
@@ -222,6 +229,7 @@ export function renderHero(position) {
         lens.x = from.x + (px - from.x) * ease
         lens.y = from.y + (py - from.y) * ease
         lens.r = from.r + (maxR - from.r) * ease
+        lens.m = MAG + (1 - MAG) * ease // magnification relaxes to 1 so the final photo lands seamlessly
         paint()
         if (sparks && k < 0.92) sparks.emitRing(lens.x, lens.y, lens.r, 5)
         k < 1 ? requestAnimationFrame(step) : done()
@@ -237,6 +245,7 @@ export function renderHero(position) {
 
     lens.x = lens.tx; lens.y = lens.ty
     lens.r = 0
+    lens.m = MAG
     lens.tr = hovering ? LENS_R : 0
     expanding = false
     lensBusy = false

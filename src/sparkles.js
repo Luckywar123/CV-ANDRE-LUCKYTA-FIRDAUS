@@ -39,6 +39,19 @@ export function createSparkles(container) {
       spawn(x + Math.cos(a) * rr, y + Math.sin(a) * rr, { size: [2, 5.4], life: [700, 1300] })
     }
   }
+  // sparkles swirling around the lens rim (inside edge + a halo just outside), alternating direction
+  function emitOrbit(x, y, r, n = 2) {
+    const t = performance.now() / 1000
+    for (let i = 0; i < n; i++) {
+      const dir = i % 2 ? -1 : 1
+      const a = t * 2.6 * dir + Math.random() * 1.1
+      const rr = r * (Math.random() < 0.55 ? rnd(1.03, 1.42) : rnd(0.9, 1.02))
+      spawn(x + Math.cos(a) * rr, y + Math.sin(a) * rr, {
+        vx: -Math.sin(a) * 0.55 * dir, vy: Math.cos(a) * 0.55 * dir,
+        spread: 0.15, life: [600, 1150], size: [2, 5.8],
+      })
+    }
+  }
   // sparkles shed from the cursor while it moves
   function trail(x, y, speed) {
     const n = Math.min(3, Math.floor(speed / 6))
@@ -89,5 +102,5 @@ export function createSparkles(container) {
   }
   function start() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame) } }
 
-  return { emitLens, trail, emitRing, burst }
+  return { emitLens, emitOrbit, trail, emitRing, burst }
 }

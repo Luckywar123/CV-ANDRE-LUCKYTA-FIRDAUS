@@ -259,3 +259,61 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(var(--gold), var(--o
 /* ─── PHOTO SPARKLES ─── */
 .photo-sparkles { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; }
 .cvbot-msg a { color: inherit; text-decoration: underline; word-break: break-all; }
+
+
+/* ─── LENS: optical-illusion rim (prismatic spinning ring + outward ripples + glass sheen) ─── */
+.photo-peek { filter: saturate(1.25) contrast(1.06); will-change: clip-path, transform; }
+.photo-frame.lens-on .photo-img { filter: brightness(.8) saturate(1.15); transition: filter .35s; }
+.photo-lens::before, .photo-lens::after { content: ''; position: absolute; border-radius: 50%; pointer-events: none; }
+.photo-lens::before { /* spinning prismatic edge */
+  inset: -5px;
+  background: conic-gradient(from 0deg, #f0b90b, #ffe08a, #5ee7ff, #ff6bd6, #f0b90b);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+  filter: blur(.4px) drop-shadow(0 0 8px rgba(255,214,102,.8));
+  animation: lensSpin 3.2s linear infinite;
+}
+.photo-lens::after { /* ripple rings radiating outward */
+  inset: 0; border: 1.5px solid rgba(255,214,102,.85);
+  animation: lensRipple 1.9s cubic-bezier(.2,.6,.3,1) infinite;
+}
+.photo-lens {
+  background: radial-gradient(circle at 32% 26%, rgba(255,255,255,.22), rgba(255,255,255,0) 38%); /* glass sheen */
+}
+@keyframes lensSpin { to { transform: rotate(360deg); } }
+@keyframes lensRipple { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.75); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .photo-lens::before, .photo-lens::after { animation: none; } }
+
+/* ─── MUSIC PLAYLIST ─── */
+#cv-music { position: relative; }
+.music-list-btn {
+  display: grid; place-items: center; width: 32px; height: 32px; margin-left: -.2rem; border: 0; border-radius: 50%;
+  background: rgba(240,185,11,.1); color: var(--gold); cursor: pointer; transition: background .2s, transform .25s;
+}
+.music-list-btn:hover { background: rgba(240,185,11,.22); }
+#cv-music.open .music-list-btn { transform: rotate(180deg); background: rgba(240,185,11,.22); }
+.music-panel {
+  position: absolute; left: 0; bottom: calc(100% + 12px); width: min(270px, 84vw); padding: .5rem;
+  border-radius: 20px; background: rgba(16,16,16,.94); border: 1px solid var(--border-gold);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 14px 40px rgba(0,0,0,.55);
+  opacity: 0; transform: translateY(10px) scale(.97); transform-origin: bottom left; pointer-events: none;
+  transition: opacity .22s, transform .28s var(--ease-out-expo);
+}
+#cv-music.open .music-panel { opacity: 1; transform: none; pointer-events: auto; }
+.music-panel-title { padding: .45rem .7rem .35rem; font: 700 .68rem var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--text-dim); }
+.music-item {
+  display: flex; align-items: center; gap: .7rem; width: 100%; padding: .55rem .7rem; border: 0; border-radius: 14px;
+  background: none; color: var(--text); text-align: left; cursor: pointer; font: 500 .85rem var(--font-body); transition: background .2s;
+}
+.music-item:hover:not(:disabled) { background: rgba(255,255,255,.07); }
+.music-item .mi-ic { font-size: 1.15rem; width: 1.5rem; text-align: center; }
+.music-item .mi-txt { flex: 1; display: flex; flex-direction: column; line-height: 1.25; }
+.music-item .mi-sub { font-size: .7rem; color: var(--text-muted); }
+.music-item.active { background: rgba(240,185,11,.14); color: var(--gold); }
+.music-item.active .mi-sub { color: rgba(240,185,11,.7); }
+.music-item .mi-eq { display: none; align-items: flex-end; gap: 2px; height: 12px; }
+.music-item .mi-eq i { width: 2.5px; height: 100%; border-radius: 2px; background: var(--gold); transform-origin: bottom; animation: eqBar 1s ease-in-out infinite; }
+.music-item .mi-eq i:nth-child(2) { animation-delay: -.35s; } .music-item .mi-eq i:nth-child(3) { animation-delay: -.7s; }
+#cv-music.playing .music-item.active .mi-eq { display: inline-flex; }
+.music-item:disabled { opacity: .4; cursor: not-allowed; }
+@media (max-width: 600px) { .music-list-btn { margin-left: -.4rem; } }
