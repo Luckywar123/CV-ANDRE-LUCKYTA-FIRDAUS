@@ -7,7 +7,7 @@ const TRACKS = [
   { id: 'lofi',         icon: '🎧', title: 'Lofi',              sub: 'Chill beats',         src: '/audio/lofi.mp3' },
   { id: 'medieval',     icon: '🏰', title: 'Medieval',          sub: 'Tavern & kastil',     src: '/audio/medieval.mp3' },
   { id: 'jazz',         icon: '🎷', title: 'Jazz Santai',       sub: 'Smooth & relax',      src: '/audio/jazz-santai.mp3' },
-  { id: 'club',         icon: '🍸', title: 'Club Fancy',        sub: 'Instrumental',        src: '/audio/club-fancy.mp3' },
+  { id: 'club',         icon: '🍸', title: 'Club Fancy Instrumental', sub: 'Fancy lounge',        src: '/audio/club-fancy.mp3' },
   { id: 'lofi-scenery', icon: '🌄', title: 'Lofi Pemandangan',  sub: 'Scenic chill',        src: '/audio/lofi-pemandangan.mp3' },
 ]
 const VOL_KEY = 'cv-lofi-vol'

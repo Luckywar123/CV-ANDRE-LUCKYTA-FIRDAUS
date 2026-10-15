@@ -294,7 +294,7 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(var(--gold), var(--o
 #cv-music.open .music-list-btn { transform: rotate(180deg); background: rgba(240,185,11,.22); }
 .music-panel {
   position: absolute; left: 0; bottom: calc(100% + 12px); width: min(270px, 84vw); padding: .5rem;
-  border-radius: 20px; background: rgba(16,16,16,.94); border: 1px solid var(--border-gold);
+  border-radius: 20px; background: rgba(14,14,14,.98); border: 1px solid var(--border-gold);
   -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 14px 40px rgba(0,0,0,.55);
   opacity: 0; transform: translateY(10px) scale(.97); transform-origin: bottom left; pointer-events: none;
   transition: opacity .22s, transform .28s var(--ease-out-expo);
@@ -317,3 +317,33 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(var(--gold), var(--o
 #cv-music.playing .music-item.active .mi-eq { display: inline-flex; }
 .music-item:disabled { opacity: .4; cursor: not-allowed; }
 @media (max-width: 600px) { .music-list-btn { margin-left: -.4rem; } }
+
+
+/* ─── LENS: abstract motion layer (picture still visible through it) ─── */
+.photo-fx {
+  position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 3; border-radius: 50%; overflow: hidden;
+  pointer-events: none; mix-blend-mode: hard-light; opacity: 0; transition: opacity .3s; will-change: transform, width, height;
+}
+.photo-frame.lens-on .photo-fx { opacity: 1; }
+.photo-frame.lens-on.lens-expanding .photo-fx { opacity: 0; transition: opacity .5s; }
+.photo-fx i { position: absolute; inset: -35%; display: block; border-radius: 50%; will-change: transform; }
+.fx-a { /* aurora swirl */
+  background: conic-gradient(from 0deg, rgba(255,107,214,0), rgba(255,60,200,.9), rgba(60,220,255,0) 30%, rgba(60,220,255,.85) 52%, rgba(255,190,0,0) 62%, rgba(255,190,0,.9) 82%, rgba(255,107,214,0));
+  opacity: .55; animation: fxSpin 8s linear infinite;
+}
+.fx-c { /* drifting colour blobs */
+  background:
+    radial-gradient(circle at 28% 30%, rgba(60,220,255,.9), transparent 40%),
+    radial-gradient(circle at 72% 66%, rgba(255,60,200,.85), transparent 42%),
+    radial-gradient(circle at 58% 18%, rgba(255,200,60,.85), transparent 36%);
+  opacity: .5; animation: fxDrift 6.5s ease-in-out infinite alternate;
+}
+.fx-b { /* moiré rings that breathe */
+  background: repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,0) 0 8px, rgba(255,236,170,.30) 9px 10px, rgba(255,255,255,0) 11px 19px);
+  -webkit-mask: radial-gradient(circle, transparent 14%, #000 80%); mask: radial-gradient(circle, transparent 14%, #000 80%);
+  opacity: .9; animation: fxRings 5.5s ease-in-out infinite alternate;
+}
+@keyframes fxSpin { to { transform: rotate(360deg); } }
+@keyframes fxDrift { 0% { transform: translate(-7%, 5%) rotate(0deg) scale(1); } 100% { transform: translate(7%, -6%) rotate(110deg) scale(1.18); } }
+@keyframes fxRings { 0% { transform: scale(.85) rotate(0deg); } 100% { transform: scale(1.3) rotate(24deg); } }
+@media (prefers-reduced-motion: reduce) { .photo-fx i { animation: none; } }

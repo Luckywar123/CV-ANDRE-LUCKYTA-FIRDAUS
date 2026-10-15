@@ -4,7 +4,6 @@ import { scrambleText, animateCounter } from '../animations.js'
 import { createSparkles } from '../sparkles.js'
 
 let currentPhotoIndex = 0
-
 export function renderHero(position) {
   const section = document.createElement('header')
   section.id = 'home'
@@ -132,7 +131,12 @@ export function renderHero(position) {
   peek.setAttribute('aria-hidden', 'true')
   const ring = document.createElement('div')
   ring.className = 'photo-lens'
-  photoInner.append(peek, ring)
+  // abstract motion layer (aurora swirl + drifting colour blobs + moiré rings), blended with 'screen' so the photo stays visible
+  const fx = document.createElement('div')
+  fx.className = 'photo-fx'
+  fx.setAttribute('aria-hidden', 'true')
+  fx.innerHTML = '<i class="fx-a"></i><i class="fx-c"></i><i class="fx-b"></i>'
+  photoInner.append(peek, fx, ring)
   const sparks = (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && photos.length > 1) ? createSparkles(photoInner) : null
 
   const LENS_R = 80
@@ -148,10 +152,15 @@ export function renderHero(position) {
 
   function paint() {
     const r = Math.max(lens.r, 0)
-    // scale about the lens centre + shrink the clip by the same factor => net radius stays r, content looks magnified
+    // magnify about the lens centre + a slow "swirl & breathe" (rotate/pulse) -> the picture inside the lens drifts like liquid glass.
+    // The clip shrinks by the same factor, so the visible radius stays r. Amplitude fades to 0 while the lens expands.
+    const k = (lens.m - 1) / (MAG - 1), t = performance.now() / 1000
+    const sc = lens.m * (1 + Math.sin(t * 1.7) * 0.03 * k)
     peek.style.transformOrigin = `${lens.x}px ${lens.y}px`
-    peek.style.transform = `scale(${lens.m})`
-    peek.style.clipPath = `circle(${r / lens.m}px at ${lens.x}px ${lens.y}px)`
+    peek.style.transform = `rotate(${(Math.sin(t * 1.1) * 5 * k).toFixed(2)}deg) scale(${sc.toFixed(4)})`
+    peek.style.clipPath = `circle(${r / sc}px at ${lens.x}px ${lens.y}px)`
+    fx.style.width = fx.style.height = r * 2 + 'px'
+    fx.style.transform = `translate(${lens.x - r}px, ${lens.y - r}px)`
     ring.style.width = ring.style.height = r * 2 + 'px'
     ring.style.transform = `translate(${lens.x - r}px, ${lens.y - r}px)`
   }
@@ -164,8 +173,8 @@ export function renderHero(position) {
     }
     paint()
     if (sparks && !expanding && lens.tr > 0 && lens.r > 24) {
-      if (Math.random() < 0.85) sparks.emitOrbit(lens.x, lens.y, lens.r, 2)   // swirl around the rim
-      if (Math.random() < 0.45) sparks.emitLens(lens.x, lens.y, lens.r, 1)    // a few inside
+      if (Math.random() < 0.95) sparks.emitOrbit(lens.x, lens.y, lens.r, 3)   // swirl around the rim
+      if (Math.random() < 0.3) sparks.emitLens(lens.x, lens.y, lens.r, 1)    // a few inside
     }
     const idle = !expanding && lens.tr === 0 && lens.r === 0
     raf = idle ? null : requestAnimationFrame(tick)
@@ -209,6 +218,7 @@ export function renderHero(position) {
 
     lensBusy = true
     expanding = true
+    photoFrame.classList.add('lens-expanding')
     const b = photoInner.getBoundingClientRect()
     const hasPoint = e.clientX || e.clientY
     const px = hasPoint ? e.clientX - b.left : b.width / 2
@@ -246,6 +256,7 @@ export function renderHero(position) {
     lens.x = lens.tx; lens.y = lens.ty
     lens.r = 0
     lens.m = MAG
+    photoFrame.classList.remove('lens-expanding')
     lens.tr = hovering ? LENS_R : 0
     expanding = false
     lensBusy = false
